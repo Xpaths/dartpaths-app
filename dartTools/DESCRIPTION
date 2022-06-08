@@ -1,0 +1,42 @@
+Package: dartTools
+Type: Package
+Title: DARTpaths web application and related tools
+Version: 1.0
+Date: 2022-06-08
+Author: Marvin Steijaert, Elisabeth Deviere, Machteld Varewyck, Monique van der Voet, Marijke van Moerbeke
+Maintainer: Marvin Steijaert <marvin.steijaert@openanalytics.eu>
+Description: DARTpaths web application and related tools
+License: Apache-2.0 + file LICENSE
+Imports: 
+    data.table,
+    shiny,
+    devtools,
+    plotly,
+    DT,
+    magrittr,
+    R6,
+    R.utils,
+    jsonlite,
+    png,
+    base64enc,
+    yaml,
+    curl,
+    reticulate,
+    digest,
+    htmltools,
+    htmlwidgets,
+    openxlsx,
+    fontawesome,
+    parallel,
+    assertthat
+Suggests:
+    shinyjs,
+    oaReporting,
+    testthat,
+    rlist,
+    shinyWidgets,
+    shiny.router,
+    shinycssloaders
+LinkingTo: Rcpp
+Encoding: UTF-8
+RoxygenNote: 7.1.2

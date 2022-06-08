@@ -1,0 +1,2 @@
+Gene stable ID	Protein stable ID	Rabbit homology type	Rabbit Gene stable ID	Rabbit Protein stable ID	status ENSEMBL
+ENSG00000161202	ENSP00000316054	one2one	ENSOCUG00000004548	ENSOCUP00000024814	absent

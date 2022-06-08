@@ -1,0 +1,53 @@
+Code	Hazard Statements 	Hazard Class
+H300	Fatal if swallowed	Acute toxicity, oral
+H301	Toxic if swallowed	Acute toxicity, oral
+H302	Harmful if swallowed	Acute toxicity, oral
+H303	May be harmful if swallowed	Acute toxicity, oral
+H304	May be fatal if swallowed and enters airways	Aspiration hazard
+H305	May be fatal if swallowed and enters airways	Aspiration hazard
+H310	Fatal in contact with skin	Acute toxicity, dermal
+H311	Toxic in contact with skin	Acute toxicity, dermal
+H312	Harmful in contact with skin	Acute toxicity, dermal
+H313	May be harmful in contact with skin	Acute toxicity, dermal
+H314	Causes severe skin burns and eye damage	Skin corrosion/irritation
+H315	Causes skin irritation	Skin corrosion/irritation
+H316	Causes mild skin irritation	Skin corrosion/irritation
+H317	May cause an allergic skin reaction	Sensitization, Skin
+H318	Causes serious eye damage	Serious eye damage/eye irritation
+H319	Causes serious eye irritation	Serious eye damage/eye irritation
+H320	Causes eye irritation	Serious eye damage/eye irritation
+H330	Fatal if inhaled	Acute toxicity, inhalation
+H331	Toxic if inhaled	Acute toxicity, inhalation
+H332	Harmful if inhaled	Acute toxicity, inhalation
+H333	May be harmful if inhaled	Acute toxicity, inhalation
+H334	May cause allergy or asthma symptoms or breathing difficulties if inhaled	Sensitization, respiratory
+H335	May cause respiratory irritation	Specific target organ toxicity, single exposure; Respiratory tract irritation
+H336	May cause drowsiness or dizziness	Specific target organ toxicity, single exposure; Narcotic effects
+H340	May cause genetic defects	Germ cell mutagenicity
+H341	Suspected of causing genetic defects	Germ cell mutagenicity
+H350	May cause cancer	Carcinogenicity
+H350i	May cause cancer by inhalation	Carcinogenicity
+H351	Suspected of causing cancer	Carcinogenicity
+H360	May damage fertility or the unborn child	Reproductive toxicity
+H360F	May damage fertility	Reproductive toxicity
+H360D	May damage the unborn child	Reproductive toxicity
+H360FD	May damage fertility; May damage the unborn child	Reproductive toxicity
+H360Fd	May damage fertility; Suspected of damaging the unborn child	Reproductive toxicity
+H360Df	May damage the unborn child; Suspected of damaging fertility	Reproductive toxicity
+H361	Suspected of damaging fertility or the unborn child	Reproductive toxicity
+H361f	Suspected of damaging fertility	Reproductive toxicity
+H361d	Suspected of damaging the unborn child	Reproductive toxicity
+H361fd	Suspected of damaging fertility; Suspected of damaging the unborn child	Reproductive toxicity
+H362	May cause harm to breast-fed children	Reproductive toxicity, effects on or via lactation
+H370	Causes damage to organs	Specific target organ toxicity, single exposure
+H371	May cause damage to organs	Specific target organ toxicity, single exposure
+H372	Causes damage to organs through prolonged or repeated exposure	Specific target organ toxicity, repeated exposure
+H373	Causes damage to organs through prolonged or repeated exposure	Specific target organ toxicity, repeated exposure
+H400	Very toxic to aquatic life	Hazardous to the aquatic environment, acute hazard
+H401	Toxic to aquatic life	Hazardous to the aquatic environment, acute hazard
+H402	Harmful to aquatic life	Hazardous to the aquatic environment, acute hazard
+H410	Very toxic to aquatic life with long lasting effects	Hazardous to the aquatic environment, long-term hazard
+H411	Toxic to aquatic life with long lasting effects	Hazardous to the aquatic environment, long-term hazard
+H412	Harmful to aquatic life with long lasting effects	Hazardous to the aquatic environment, long-term hazard
+H413	May cause long lasting harmful effects to aquatic life	Hazardous to the aquatic environment, long-term hazard
+H420	Harms public health and the environment by destroying ozone in the upper atmosphere	Hazardous to the ozone layer

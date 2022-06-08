@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- template.html -->
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DARTpaths</title>  
+    {{ headContent() }}
+	{{ bootstrapLib() }} 
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/table.css">
+  </head>
+
+  <body>
+
+<div class = "page-container">
+		<nav class="navbar">
+      		<a class="navbar-brand" href="./#!/">DARTpaths</a>
+			<div id = "backtoinfo"> </div>
+      		<a class="navbar-text" href="./#!/about">About DARTpaths</a>
+		<span class = "logout" ><a class = "logout-link" href="/logout">Sign Out</a></span>
+    	
+		</nav>
+	<div class = "content-wrap">
+		<div class = "page-title pathway-title-bar">
+			<div id = "left-pathway-title-bar">
+				<h2 class = "pathway-title"> Selected pathway </h2>
+				{{ pathway_reactomeButton }}
+			</div>
+			<div id = "right-pathway-title-bar">
+				<h2 class = "pathway-title"> Human gene conservation per species </h2>
+				<div class = "bar-plot-container">
+				{{ gene_plot }}
+				</div>
+			</div>
+		</div>
+		<div class = "main container-fluid pathway-results-container">
+			<div id = "gene-table-div">
+   		  {{ pathway_search }}
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

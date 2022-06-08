@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- template.html -->
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DARTpaths</title>  
+    {{ headContent() }}
+	{{ bootstrapLib() }} 
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/table.css">
+	<script type="text/javascript" src = "js/landing.js"></script>
+  </head>
+
+  <body>
+<header>
+
+</header>
+	<div class = "page-container">
+	
+		<div class = "content-wrap">
+		
+		<nav class="navbar">
+      <a class="navbar-brand" href="./#!/">DARTpaths</a>
+      <a class="navbar-text" href="./#!/about">About DARTpaths</a>
+      <span class = "logout" ><a class = "logout-link" href="/logout">Sign Out</a></span>
+    </nav>
+		
+			<div class = "row" style = "text-align: center;">
+				<div class = "col">
+					<h1 class = "title-app"> DARTpaths </h1>
+					<p class = "subtitle"> Start by searching for a chemical substance or selecting a biological pathway to explore </p>
+				</div> 
+			</div>
+	
+				<div class = "row box-wrapper">
+					<div class = "col-sm-12 col-md-12 col-lg-6 col-xl-6" >
+				 	{{ panel }} 
+					</div>
+					<div class = "col-sm-12 col-md-12 col-lg-6 col-xl-6" >
+				 	{{ panel2 }}
+					</div>
+				</div>
+		</div>
+		<footer class = "fixed-footer">
+		<div id = "logo-wrapper">
+                <a href="https://www.vivaltes.com" target="_blank">
+                  <img src="images/Vivaltes_logo.svg" height="70px">
+                </a>
+		        <a href="https://www.openanalytics.eu" target="_blank">
+                  <img src="images/oa.png" height="50px">
+                </a>
+                <a href="https://www.biw.kuleuven.be/m2s/cmpg/research/CSB" target="_blank">
+                  <img src="images/KU_Leuven_logo.svg" height="50px">
+                </a>
+                <a href="https://www.hu.nl/" target="_blank">
+                  <img src="images/hu-logo-international.svg" height="50px">
+                </a>
+                <a href="https://www.cleverfranke.com/" target="_blank">
+                  <img src="images/cleverfranke.png" height="70px">
+                </a>
+                <a href="https://nc3rs.org.uk/" target="_blank">
+                  <img src="images/nc3rs.jpg" height="100px">
+                </a>
+                <a href="https://www.shell.com/" target="_blank">
+                  <img src="images/shell.png" height="50px">
+                </a>
+                <a href="https://www.syngenta.com/" target="_blank">
+                  <img src="images/syngenta.png" height="50px">
+                </a>
+              </div>
+		</footer>
+	</div>
+  </body>
+</html>

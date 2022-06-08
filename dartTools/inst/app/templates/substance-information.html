@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- substance-filter.html -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DARTpaths</title>  
+    {{ headContent() }}
+	{{ bootstrapLib() }} 
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/table.css">
+</head>
+
+<body>
+	
+	<div class = "page-container scroll-container">
+		<nav class="navbar">
+      		<a class="navbar-brand" href="./#!/">DARTpaths</a>
+			<div id = "backpage"> </div>
+      		<a class="navbar-text" href="./#!/about">About DARTpaths</a>
+		<span class = "logout" ><a class = "logout-link" href="/logout">Sign Out</a></span>
+    	</nav>
+	
+	<div class = "content subst-info-content">
+		
+			{{ substance_name }}
+			
+			<div class = "subst-info-table">
+   			{{ substance_information }}
+			</div>
+			<div>
+			</div>
+			
+			<div>
+			
+			</div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

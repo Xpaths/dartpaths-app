@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- template.html -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DARTpaths</title>  
+    {{ headContent() }}
+	{{ bootstrapLib() }} 
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/table.css">
+</head>
+
+<body>
+<div class = "page-container">
+	<div class = "content-wrap">
+	
+	<nav class="navbar">
+      <a class="navbar-brand" href="./#!/">DARTpaths</a>
+      <a class="navbar-text" href="./#!/about">About DARTpaths</a>
+	<span class = "logout" ><a class = "logout-link" href="/logout">Sign Out</a></span>
+    </nav>
+		<div class = "main container-fluid">
+   		{{panel_info}}
+		</div>
+	</div>
+	<footer class = "fixed-footer">
+	
+	</footer>
+</div>
+
+</body>
+</html>

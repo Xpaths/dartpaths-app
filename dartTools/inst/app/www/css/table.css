@@ -1,0 +1,1817 @@
+/****************************************/
+/* CSS FOR TABLES                       */
+/*                                      */
+/* author:                              */
+/*   elisabeth.deviere@openanalytics.eu */
+/****************************************/
+
+
+/*--------------------------------------------------*/
+/*                     GENERAL                      */
+/*--------------------------------------------------*/
+
+/* =================== header ================== */
+
+
+table.dataTable thead tr th {
+	border-spacing: 0;
+}
+
+table.dataTable thead .sorting { 
+	padding-bottom: 15px;
+}
+
+table.dataTable thead th {
+	border-bottom: 1px solid transparent;
+	color: #1D3A65;
+	font-size: 14px;
+}
+
+table.dataTable thead td {
+	border-bottom: 1px solid transparent;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+	border: 1px solid #ccc;
+}
+
+
+
+/* =================== cells ================== */
+
+table.dataTable {
+	border-spacing : 0 3px;
+}
+
+table.dataTable tbody td {
+	padding: 8px 20px;
+}
+
+table.dataTable tbody td:first-child {
+	padding-left: 25px;
+}
+
+/* =================== rows ================== */
+
+
+
+table.display.dataTable tbody tr.even,
+table.display.dataTable tbody tr.odd,
+table.display.dataTable tbody tr.even.selected,
+table.display.dataTable tbody tr.odd.selected {
+	background-color: transparent;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	color: #000000;	
+}
+
+
+
+/* =================== footer ================== */
+
+table.dataTable.no-footer {
+	border-bottom: 1px solid transparent;
+}
+
+/* =================== search form ================== */
+
+
+.dataTables_filter input {
+	background-color: rgba(29, 58, 101, 0.1);
+	border: none;
+	border-radius: 5px;
+	height: 34px;
+	width: 180px;
+}
+
+.dataTables_filter input:active,
+.dataTables_filter input:focus {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background: #fff;
+	color:#1D3A65;	
+}
+
+.dataTables_filter label {
+	color: #1D3A65;
+	margin-bottom: 0;
+}
+
+/* =================== table length (show x entries) ================== */
+
+.dataTables_wrapper .dataTables_info {
+	padding-top: 1em;
+}
+
+.dataTables_wrapper .dataTables_length { 
+	color: #1D3A65;
+	font-weight: normal;
+	padding-top: 0.5em;
+	margin-left: 20px;
+	font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_length select { /* select number of entries */
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 4px;
+	background-color: #ddd;
+	border: none;
+	border-radius: 5px;
+}
+
+.dataTables_wrapper .dataTables_length label {
+	font-weight: normal;
+}
+
+/* ========== table info (showing x to x of x entries)  ============== */
+
+.dataTables_wrapper .dataTables_info {
+	color: #1D3A65;
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+
+/* =================== pagination  ================== */
+
+.dataTables_wrapper .dataTables_paginate a.paginate_button { 
+	color: #1D3A65!important;
+	border-radius: 5px;
+	background-color: rgba(29, 58, 101, 0.1);
+	font-size: 14px;
+}
+
+#substance_pathways_summary .dataTables_wrapper .dataTables_paginate a.paginate_button {
+	font-size: 12px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover  {
+ 	color: #fff!important;
+ 	border: 1px solid #1D3A65;
+ 	background-color: #1D3A65;
+ 	outline: none;
+ 	border-radius: 5px;
+	background: #1D3A65;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active,
+.dataTables_wrapper .dataTables_paginate .paginate_button:focus   {
+ 	color: #fff !important;
+ 	border: 1px solid #1D3A65;
+ 	background-color: #1D3A65;
+ 	outline: none; 	
+	background: #1D3A65;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+ 	cursor: default;
+ 	color: #666!important;
+ 	border: 1px solid transparent;
+ 	background: transparent;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+	padding-top: 0.755rem;
+}
+
+/* =================== links ================== */
+
+table  a {
+	color: #1D3A65;
+}
+
+table a:hover, table a:focus, table a:active {
+	color: #1D3A65;
+}
+
+
+/*--------------------------------------------------*/
+/*           SUBSTANCE / CATEGORY TABLE             */
+/*--------------------------------------------------*/
+
+/* =================== width of table ================== */
+
+#substance_searchResult .top,
+#category_searchResult .top {
+	width: 100%;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	position: relative;
+	top: 57px;
+} 
+
+#substance_searchResult table,
+#category_searchResult table {
+	width: 80%!important;	
+}
+
+/* =================== header ================== */
+
+
+#substance_searchResult table.dataTable thead th,
+#category_searchResult table.dataTable thead th
+ {
+	border-bottom: 1px solid transparent;
+	padding-bottom: 25px;
+	padding-top: 18px;
+}
+
+table.substance-table.fixedHeader-floating {/* fixed table header */
+	background-color: #f5f5f6;
+	width: 100%;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#substance_searchResult table.dataTable.fixedHeader-floating thead td,
+#category_searchResult table.dataTable.fixedHeader-floating thead td {/* fixed table header */
+	background: #f5f5f6;
+	border-bottom: 1px solid transparent!important;
+		}
+			
+		
+/* =================== search form ================== */
+
+#substance_searchResult .dataTables_filter, #category_searchResult .dataTables_filter {
+	margin-top: -120px;
+	margin-right: 15px;
+}
+
+
+
+/* =================== all cells ================== */
+
+#substance_searchResult table.dataTable tbody > tr > td {
+	font-size: 14px;
+}
+
+#substance_searchResult table td.td-parent,
+#category_searchResult table td {
+	background-color: #fff;
+}
+
+#substance_searchResult table td.td-parent-icon {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#category_searchResult table.dataTable > tbody > tr.odd,
+#category_searchResult table.dataTable > tbody > tr.even,
+#substance_searchResult table.dataTable > tbody > tr.odd,
+#substance_searchResult table.dataTable > tbody > tr.even {
+	background-color: transparent;
+}
+
+
+
+
+/* =================== nested table ================== */
+
+
+#substance_searchResult table td.td-child {
+	vertical-align: super;
+}
+
+th.toggle-icon.toggle-show.sorting_disabled:after {
+	opacity: 0;
+}
+
+.nested-table {
+	width: 100%;
+}
+
+.nested-table tbody tr {
+	line-height: 2;
+}
+
+/*** parent rows ***/
+
+/* radius zero and white background for nested table*/
+table.substance-table.dataTable > tbody > tr.selected td{
+	background:  #fff!important; 
+}
+
+table.substance-table.dataTable > tbody > tr.selected td.td-child {
+	background:  #fff!important;
+	border-radius: 0; 
+}
+
+
+/* selected child row */
+#substance_searchResult table.substance-table.dataTable > tbody > tr.selected {
+	background-color: transparent;
+}
+
+/* parent rows*/
+
+#category_searchResult table.dataTable tbody tr.even td:first-child,
+#category_searchResult table.dataTable tbody tr.odd td:first-child,  
+table.substance-table.dataTable tbody tr.even td:first-child,
+table.substance-table.dataTable tbody tr.odd td:first-child,
+.filter-table table.dataTable tbody tr.even td:first-child,
+.filter-table table.dataTable tbody tr.odd td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#category_searchResult table.dataTable tbody tr.even td:last-child, 
+#category_searchResult table.dataTable tbody tr.odd td:last-child,
+table.substance-table.dataTable.no-footer tbody tr.even td:last-child, /* radius for selected row */
+table.substance-table.dataTable.no-footer tbody tr.odd td:last-child,
+.filter-table table.dataTable.no-footer tbody tr.even td:last-child, /* radius for selected row */
+.filter-table table.dataTable.no-footer tbody tr.odd td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.td-parent.toggle-icon {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#category_searchResult table.dataTable > tbody > tr.odd:hover,
+#category_searchResult table.dataTable > tbody > tr.even:hover,
+table.substance-table.dataTable > tbody > tr.odd:hover,
+table.substance-table.dataTable > tbody > tr.even:hover {/*NB: nested tables don't have odd and even classes*/
+	background-color: #EDF4FE!important;
+}
+
+/* selected parent rows*/
+#category_searchResult table.dataTable > tbody > tr.odd.selected,
+#category_searchResult table.dataTable > tbody > tr.even.selected,
+table.substance-table.dataTable > tbody > tr.even.selected,
+table.substance-table.dataTable > tbody > tr.odd.selected,
+table.substance-table.dataTable > tbody > tr.odd.selected:hover,
+table.substance-table.dataTable > tbody > tr.even.selected:hover {/*NB: nested tables don't have odd and even classes*/
+	background-color: #EDF4FE!important;
+}
+
+#category_searchResult table.dataTable > tbody > tr.selected td,
+table.substance-table.dataTable > tbody > tr.selected td.td-parent {
+	background:  #EDF4FE!important;
+}
+
+
+td.toggle-icon:hover {
+	cursor: pointer;	
+}
+
+th.toggle-icon::after {
+	opacity: 0;
+}
+
+#category_searchResult table.dataTable > tbody > tr.odd,
+#category_searchResult table.dataTable > tbody > tr.even,
+#substance_searchResult table.dataTable > tbody > tr.odd,
+#substance_searchResult table.dataTable > tbody > tr.even {
+	cursor: pointer;
+}
+
+#category_searchResult tbody td:nth-child(2),
+#category_searchResult tbody td:nth-child(3),
+#category_searchResult tbody td:nth-child(2) a,
+#category_searchResult tbody td:nth-child(3) a,
+#substance_searchResult td.td-parent.td-parent-ec,
+#substance_searchResult td.td-parent.td-parent-ec a,
+#substance_searchResult td.td-parent.td-parent-cas,
+#substance_searchResult td.td-parent.td-parent-cas a {
+	color: #000;
+	font-size: 16px;
+	font-family: Roboto Mono;
+}
+
+#category_searchResult tbody td:first-child a,
+#category_searchResult tbody td:first-child, 
+#substance_searchResult td.td-parent.td-parent-name,
+#substance_searchResult td.td-parent.td-parent-name a {
+	font-weight: 500;
+	color: #000;
+	font-size: 16px;
+}
+
+td.td-parent a:not(:first-child), td.td-parent br  {
+	display: none;
+}
+
+td.td-parent a { /* disable links of parent rows */
+	cursor: default;
+	pointer-events: none;
+	text-decoration: none;
+}
+
+td.details-control {
+	color: #1D3A65;
+}
+
+#substance_searchResult table.dataTable tbody tr td.details-control {
+	font-size: 14px;
+}
+
+.td-parent-name {
+	width: 22%;
+}
+
+.td-parent-ec {
+	width: 15%;
+}
+
+.td-parent-cas {
+	width: 15%;
+}
+
+.td-parent-structure {
+	width: 20%;
+}
+
+.td-parent-details {
+	width: 25%;
+}
+
+#substance_searchResult .td-parent-icon {
+	width: 3%;
+	padding-left: 0!important;
+	padding-right: 30px!important;
+}
+
+/*** child-rows ***/
+
+/* rows of nested tables */
+table.substance-table.dataTable > tbody > tr.child-row.selected,
+table.substance-table.dataTable > tbody > tr.child-row.selected {
+	background-color: #fff!important;
+}
+
+#substance_searchResult table.nested-table,
+#category_searchResult {
+	width: 100%;
+}
+
+
+table.substance-table.dataTable tbody td.td-child {
+	padding-top: 0;
+	padding-left: .2em;
+	padding-right: .5em;
+	line-height: 1.7;
+}
+
+table.substance-table.dataTable tbody td.td-child.td-child-name {
+	color: #1D3A65;
+}
+
+table.substance-table.dataTable tbody td.td-child.td-child-ec,
+table.substance-table.dataTable tbody td.td-child.td-child-ec a {
+	font-family: Roboto Mono;
+}
+
+table.substance-table.dataTable tbody td.td-child.td-child-cas,
+table.substance-table.dataTable tbody td.td-child.td-child-cas a {
+	font-family: Roboto Mono;
+}
+
+table.substance-table.dataTable tbody td.td-child.td-child-ec {
+	padding-left: .6em;
+	color: #1D3A65;
+}
+
+table.substance-table.dataTable tbody td.td-child.td-child-cas {
+	padding-left: 1em;
+	color: #1D3A65;
+}
+
+table.dataTable tbody td.td-child a:first-child {
+	font-weight: bold;
+}
+
+.td-child-name {
+	width: 27%!important;
+}
+
+.td-child-ec {
+	width: 19%!important;
+	padding-left: 10px!important;
+}
+
+.td-child-cas {
+	width: 15%;
+	padding-left: 15px!important;
+}
+
+.td-child-structure {
+	width: 20%;
+}
+
+.td-child-view-more {
+	width: 20%;
+}
+
+.td-child-icon {
+	width: 8%;
+}
+
+/*** arrows up and down ***/
+
+.toggle-show:after {
+	content: ' ';
+	position: relative;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border-style: solid;
+	border-width: 0px 2px 2px 0px;
+	border-color: #1D3A65;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	margin-left: 15px;
+}
+
+.toggle-hide:after {
+	content: ' ';
+	display: inline-block;
+	position: relative;
+	width: 14px;
+	height: 14px;
+	border-style: solid;
+	border-width: 0px 2px 2px 0px;
+	border-color: #1D3A65;
+	transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	margin-left: 15px;
+}
+
+th.details-control.toggle-show:after {
+	border-color: transparent;
+}
+
+
+/*--------------------------------------------------*/
+/*         SUBSTANCE INFORMATION PAGE TABLES        */
+/*--------------------------------------------------*/
+
+/* =================== name of the substance visible across all tabs ================== */
+
+/*.invivo-count-div,*/ .clp-div {
+	min-height: 50px;
+}
+
+.overview-table table.dataTable thead th {
+	border-bottom: 1px solid transparent;
+	font-size: 12px;
+	padding: 0;
+}
+
+.overview-table table.dataTable td {
+	font-size: 12px;
+}
+
+#subst-name, #subst-name-loading, #cat-name-loading { /* container div*/
+	display: block;
+	float: left;
+	background-color: #fff;
+	padding: 0 15px;
+	color: rgb(0, 0, 0);
+	font-weight: 500;
+	min-height: 52px;
+	font-size: 20px;
+	margin-left: -7.5px;
+}
+
+#subst-name a {
+	color: rgb(0, 0, 0);
+}
+
+.overview-table table a {
+	color: rgb(0, 0, 0);
+}
+
+#substance_name table.dataTable tbody td.details-control,
+#substance_name table.dataTable tbody tr.odd.selected td.details-control {
+	cursor: pointer;
+	display: block;
+	text-align: center;
+	width: 40px;
+	padding: 0;
+	border-radius: 5px;
+	background: #488DF4!important;
+	color: #fff;
+	margin-top: 8px;
+	width: 40px;
+	font-size: 16px;
+	}
+
+#substance_name table thead {
+	display: none;
+}
+
+#substance_name table.display.dataTable.no-footer {
+	width: 100%!important;
+}
+
+#substance_name  table.dataTable.display tbody tr.even,
+#substance_name  table.dataTable.display tbody tr.odd,
+#substance_name  table.dataTable.display tbody tr.even.selected,
+#substance_name  table.dataTable.display tbody tr.odd.selected {
+	background-color: transparent;
+	box-shadow: none; 
+	-webkit-box-shadow: none; 
+	color: #000000;
+}
+
+#substance_name table > tbody > tr > td a:not(:first-child), 
+#substance_name table > tbody > tr > td br  {
+	display: none;
+}
+
+#substance_name .dataTable > tbody > tr.selected td {
+	background-color: #fff!important;
+}
+/**** tooltip ****/
+
+[data-title] {
+    position: relative;
+    display: inline-block;
+}
+
+[data-title]:after {
+    content: attr(data-title);
+    background-color: #fff;
+    color: #1D3A65;
+    min-width: 400px;
+    max-width: 700px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 55px;
+    left: -340px;
+    z-index: 99999;
+    visibility: hidden;
+    font-size: 14px;
+    font-weight: normal;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+    -webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+    text-align: left;
+    line-height: 1.8;
+    white-space: pre;
+    display: block;
+}
+
+th.mytooltip[data-title]::after { /* tooltip of similarity column */
+	position: absolute;
+	top: -50px;
+	left: -240px;
+}
+
+th.mytooltip {
+	width: 78%!important;
+}
+
+
+[data-title]::after::first-line {
+	font-weight: bold;
+}
+
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+/*** info tooltip for similarity table ***/
+
+.info-tip-wrapper {
+	position: absolute;
+	top: 60px;
+	right: 40px;
+	width: 30px;
+	height: 30px;
+	background-color: #fff;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-moz-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+}
+
+.info-tip {
+	position: relative;
+  	display: inline-block;
+	color: #488DF4;
+	font-weight:900;
+	font-family: Garamond;
+}
+
+.info-tip .tooltiptext {
+	visibility: hidden;
+	background-color: #fff;
+    	color: #1D3A65;
+    	width: 650px;
+    	padding: 20px 25px;
+    	border-radius: 5px;
+    	position: absolute;
+    	top: 50px;
+    	right: -20px;
+    	z-index: 99999;
+    	font-size: 14px;
+    	font-weight: normal;
+    	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+    	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+    	text-align: left;
+    	line-height: 1.8;
+    	display: block;
+	font-family: Roboto;
+    	white-space: pre-line;
+}
+
+#overview-tip-wrapper .info-tip .tooltiptext,
+#similar-tip-wrapper .info-tip .tooltiptext {
+	padding-top: 0;
+}
+
+#gene-table-div div[data-value = "Orthology relation"] .info-tip .tooltiptext {
+    	padding-top: 0;
+    	white-space: pre-line;
+}
+
+.info-tip-wrapper:hover .tooltiptext {
+visibility: visible;	
+}
+
+
+/* =================== sidebar overview ================== */
+
+
+.overview-table table.dataTable.display tbody tr.even,
+.overview-table table.dataTable.display tbody tr.odd,
+.overview-table table.dataTable.display tbody tr.even.selected,
+.overview-table table.dataTable.display tbody tr.odd.selected {
+	border-radius: 5px;
+	background-color: transparent;
+	box-shadow: none; 
+	-webkit-box-shadow: none; 
+	color: #000000;	
+}
+
+.overview-table table.dataTable.display tbody tr.even.selected td,
+.overview-table table.dataTable.display tbody tr.odd.selected td {
+	background-color: #fff!important;
+}
+
+.overview-table table thead tr th {
+	color: #488df4;
+	padding-left: 40px;
+}
+
+.overview-table table.dataTable tbody tr td {
+	padding-left: 40px;
+}
+
+.subst-info-content .col-sm-4 {
+	padding-left: 0	;
+	padding-right: 0;
+}
+
+.overview-table .td-parent {
+	width: 80%;
+}
+
+.overview-table table.dataTable tbody td.td-child {
+	width: 100%;
+	line-height:1.5;
+	padding: 0;
+}
+
+
+.overview-table table.dataTable tbody td.details-control,
+.overview-table table.dataTable tbody tr.odd.selected td.details-control {
+	cursor: pointer;
+	display: block;
+	padding: 0;
+	text-align: center;
+	border-radius: 5px;
+	background: #488DF4!important;
+	color: #fff;
+	margin-top: 8px;
+	width: 40px;
+}
+
+#substance_summary1_invitro_names table tbody tr td {
+	display: block;
+	column-count: 3;
+	max-width: 350px;
+}
+
+.gene-num {/* occurrences of genes*/
+	display: inline;
+	padding-right: 8px;
+	color: rgba(0, 0, 0, 0.2);
+}
+
+.gene-name {
+	display: inline;
+	color: rgba(0, 0, 0);
+	font-size: 12px;
+}
+
+#substance_summary1_phenotypes_nonmammalian div.gene-name {
+	display: inline;
+	color: rgba(0, 0, 0);
+	font-size: 12px;
+}
+
+#substance_summary1_invitro_names table,
+#substance_summary1_phenotypes table/*,
+/*#substance_summary1_invivo table*/ {
+	margin-top: -20px;
+}
+
+#substance_summary1_invivo {
+	line-height: 2;
+}
+
+.invivo-sum {
+	font-family: Roboto Mono;
+	display: inline;
+}
+
+.invivo-total {
+	display: inline;
+}
+
+.invivo-sum-wrapper {
+	display: inline-block;
+	min-width: 85px;
+}
+
+/* =================== pathway overview table ================== */
+
+#substance_pathways_summary table.display.dataTable.no-footer {
+	width: 100%!important;
+}
+
+#substance_pathways_summary table td {
+	font-size: 16px;
+}
+
+#substance_pathways_summary table thead {
+	display:none;
+}
+ 
+#substance_pathways_summary tr td:first-child {
+	font-family: Roboto Mono;
+	width: 8%
+}
+
+#substance_pathways_summary tr td:nth-child(2),
+#substance_pathways_summary tr td:nth-child(3),
+#substance_pathways_summary tr td:nth-child(4) {
+	width: 6%;
+}
+
+#substance_pathways_summary tr td:nth-child(5) {
+	width: 74%;
+}
+
+#substance_pathways_summary {/* pathways table div */
+	margin-top: -5px; 
+}
+
+#substance_pathways_summary table.dataTable thead th {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
+#substance_pathways_summary table.dataTable tbody:before {/* adds some space before the header and the body */
+	content: "";
+	height: 6px;
+	display: block;
+}
+
+#substance_pathways_summary table.dataTable.display tbody tr.even td,
+#substance_pathways_summary table.dataTable.display tbody tr.odd td {
+	color: #fff!important;
+	background-color: #1D3A65
+}
+
+
+#substance_pathways_summary table.dataTable.display tbody tr.even.selected td:last-child,
+#substance_pathways_summary table.dataTable.display tbody tr.odd.selected td:last-child,
+#substance_pathways_summary table.dataTable.display tbody td.selected:last-child {
+	color: #fff!important;
+	background-color: rgba(72, 141, 244)!important;
+}
+
+#substance_pathways_summary table.dataTable.display tbody tr.even.selected td:not(:last-child),
+#substance_pathways_summary table.dataTable.display tbody tr.odd.selected td:not(:last-child),
+#substance_pathways_summary table.dataTable.display tbody td.selected:not(:last-child) {
+	color: #fff!important;
+	background-color: #1D3A65!important;
+}
+
+
+#substance_pathways_summary table.dataTable.display tbody tr.even td:first-child,
+#substance_pathways_summary table.dataTable.display tbody tr.odd td:first-child,
+#substance_pathways_summary table.dataTable.display tbody tr.even.selected td:first-child,
+#substance_pathways_summary table.dataTable.display tbody tr.odd.selected td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+
+#substance_pathways_summary table.dataTable.display tbody tr td:last-child a {
+	color: #fff;
+}
+
+
+#substance_pathways_summary table.dataTable > tbody > tr.selected td:first-child {
+	background-color:  rgba(29, 58, 101);
+}
+
+
+#substance_pathways_summary table.dataTable > tbody > tr.selected td:last-child {
+	background-color:  rgba(72, 141, 244);
+}
+
+#substance_pathways_summary table.dataTable.display tbody tr td:last-child {
+	background-color: #488DF4;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.no-details {
+  height: 12px;
+  width: 12px;
+  background-color: #1D3A65;
+  opacity: 0.8;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.nam-no-details {
+	border: 1px solid #EA3CA4;
+}
+
+.mammalian-no-details {
+	border: 1px solid #FFDE17;
+}
+
+.invitro-no-details {
+	border: 1px solid #FF8A00;
+}
+.invitro-details {
+  height: 12px;
+  width: 12px;
+  background-color: #FF8A00;
+  border-radius: 50%;
+  display: inline-block;	
+}
+
+.mammalian-details {
+  height: 12px;
+  width: 12px;
+  background-color: #FFDE17;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.nam-details {
+  height: 12px;
+  width: 12px;
+  background-color: #EA3CA4;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+#substance_pathways_summary table{
+	padding-bottom: 70px;
+}
+
+#substance_pathways_summary .bottom{
+	position: fixed;
+	bottom: 0;
+	height: 5%;
+	width: 41%;
+	border-top: 1px solid rgba(0, 0, 0, 0.2);
+	background: #f5f5f6;
+}
+
+
+#substance_pathways_summary .dataTables_paginate {
+	position: absolute;
+	right: 2%;
+}
+
+#substance_pathways_summary .dataTables_length {
+	position: absolute;
+	left: 3%;
+	font-size: 12px;
+}
+
+/* =================== pathway details tab tables ================== */
+
+
+
+.information-table > #substance_invitro > table.display.dataTable {
+	width: 100%!important;
+}
+
+#ranking_indiv_pathways table.dataTable > tbody > tr.selected td,
+#invitro_details table.dataTable > tbody > tr.selected td,
+#phenotypes_details table.dataTable > tbody > tr.selected td {
+	background:  #fff!important; 
+}
+
+#ranking_indiv_pathways table.dataTable > thead > tr > th {
+	font-size: 12px;
+}
+
+#ranking_indiv_pathways table.dataTable > tbody td:nth-child(3),
+#ranking_indiv_pathways table.dataTable > tbody td:nth-child(4),
+#ranking_indiv_pathways table.dataTable > tbody td:nth-child(5) {
+	font-family: Roboto Mono;
+}
+
+#ranking_indiv_pathways table.dataTable > tbody > tr.selected, 
+#invitro_details table.dataTable > tbody > tr.selected,
+#phenotypes_details table.dataTable > tbody > tr.selected {
+	background-color:transparent!important; 
+}
+
+#ranking_indiv_pathways table tr, 
+#invitro_details table tr,
+#phenotypes_details table tr {
+	background-color: transparent;
+}
+
+#ranking_indiv_pathways table tr td,
+#invitro_details table tr td,
+#phenotypes_details table tr td {
+	background-color: #fff;	
+}
+
+#ranking_indiv_pathways table tr td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;	
+}
+
+#ranking_indiv_pathways table tr td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;	
+}
+
+#invitro_details table tr td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-left: 16px solid #FF8A00;	
+}
+
+.pheno-mam-table table tr td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-left: 16px solid #FFDE17;	
+}
+
+.pheno-non-mam-table table tr td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-left: 16px solid #EA3CA4;	
+}
+
+#invitro_details table tr td:last-child,
+#phenotypes_details table tr td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;	
+}
+
+
+/* =================== other tabs tables ================== */
+
+/*** pathway ranking table ***/
+#substance_pathways table.dataTable > tbody td:nth-child(4),
+#substance_pathways table.dataTable > tbody td:nth-child(5),
+#substance_pathways table.dataTable > tbody td:nth-child(6),
+#substance_pathways table.dataTable > tbody td:nth-child(7) {
+	font-family: Roboto Mono;
+}
+
+/*** similar substances table ***/
+#substance_summary2 table.dataTable > tbody td:nth-child(5), 
+#substance_summary2 table.dataTable > tbody td:nth-child(7) {
+	font-family: Roboto Mono;
+}
+
+#substance_invitro table.dataTable > tbody td:nth-child(3) {
+	font-family: Roboto Mono;
+}
+
+
+.information-table {
+	margin-top: 25px;
+	width: 95%!important;
+}
+
+.information-table input.form-control {
+	border-radius: 5px;
+	box-shadow: none;
+	font-size: 14px;
+	height: 32px;
+}
+
+.information-table input.form-control:active,
+.information-table input.form-control:focus {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	color: #1D3A65;
+	box-shadow: none;
+	font-size: 14px;
+}
+
+.information-table table.dataTable > tbody > tr.selected td{
+	background:  #fff!important; 
+}
+
+.information-table table.dataTable > tbody > tr.selected {
+	background-color:transparent!important; 
+}
+
+.information-table table.dataTable tbody::before {
+	content: "";
+	height: 6px;
+	display: block;
+}
+
+div.information-table table:not(.invivo-nested-table) {
+	margin-bottom: 150px;
+}
+
+.information-table > #substance_invitro > table.display.dataTable {
+	margin-right: 40px!important;
+}
+
+.information-table {
+	margin-left: auto;
+	margin-right: auto!important;
+}
+
+.information-table table.dataTable thead th {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}	
+
+.information-table table.dataTable thead td {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.information-table table tr {
+	background-color: transparent;
+}
+
+.information-table table tbody tr td {
+	background-color: #fff;
+}
+
+.information-table table tbody tr td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;	
+}
+
+.information-table table tbody tr td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;	
+}
+
+/* =================== Regulatory conclusions table ================== */
+
+table.invivo-nested-table {
+	color: #000;
+}
+
+.information-table > #substance_mammalian > table.display.dataTable {
+	width: 100%!important;
+}
+
+/* =================== Mammalian table ================== */
+
+#substance_mammalian table .td-before-conclusions {
+	width: 65%;
+}
+
+#substance_mammalian table .td-parent-conclusions {
+	width: 17%;		
+}
+
+#substance_mammalian table .td-child-conclusions {
+	width: 30%;
+}
+
+table.invivo-nested-table {
+	margin-bottom: 0!important;
+}
+
+/* =================== Phenotypes table ================== */
+
+#substance_phenotypes table .td-before-conclusions {
+	width: 70%;
+}
+
+#substance_phenotypes table .td-child-conclusions {
+	width: 30%;	
+	color: #000000;	
+}
+
+/* =================== toggle rows in filter tables ================== */
+
+#mammalianPhenotypes .td-before-conclusions {
+	width: 52%;
+}
+
+#nonMammalianPhenotypes .td-before-conclusions {
+	width: 60%;
+}
+
+
+#modalFilter table.dataTable tr.selected td.select-checkbox::after {
+	font-size: 18px;
+}
+
+/* =================== similar substances table ================== */
+
+#current_substance table.dataTable tbody tr.odd td.td-parent.td-parent-name {
+	padding-bottom: 60px;
+}
+
+#current_substance table.dataTable tbody tr.odd td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#current_substance table.dataTable > tbody > tr.odd {
+	background-color: transparent!important;
+}
+
+#current_substance table.dataTable tbody tr.odd td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+
+#current_substance table {
+	width: 100%!important;
+	margin-bottom: 20px;
+}
+
+#current_substance table tbody td:last-child {
+	color: #488DF4;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+#current_substance table tbody td.details-control:hover {
+	cursor: pointer;
+}
+
+#current_substance table tbody td a,
+#current_substance table tbody td.td-child-name a,
+#substance_summary2 table a {
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+}
+
+#substance_summary2 table.display.dataTable {
+	padding-bottom: 80px;
+}
+
+
+#current_substance table tbody .td-parent-name {
+	display: block;
+	width: 100%;
+	padding-top: 20px;
+}
+
+#current_substance table tbody td.details-control {
+	display: block;
+	width: 100%;
+	font-size: 12px;
+	padding-top: 0;
+	padding-bottom: 60px;
+	padding-left: 25px;
+}
+
+#current_substance table tbody .td-child-name {
+	line-height: 1.2;
+	padding-left: 0;
+	font-size: 16px;
+}
+
+#current_substance table td:nth-child(3) img,
+#substance_summary2 table td:nth-child(2) img {
+	width: 40%;
+}
+
+#current_substance table td.selected {
+	background: #fff!important;
+}
+
+#current_substance table thead {
+	display: none;
+}
+
+#substance_summary2 table td:first-child {
+	width: 31%;
+}
+
+
+#substance_summary2 table td:nth-child(2) {
+	width: 18%;
+	text-align: center;
+}
+
+#substance_summary2 table td:nth-child(3) {
+	width: 14%;
+}
+
+#substance_summary2 table td:nth-child(6) {
+	width: 12%;
+}
+
+
+
+#substance_summary2 table td:nth-child(4),
+#substance_summary2 table td:nth-child(5) {
+	width: 8%;
+}
+
+#substance_summary2 table td:nth-child(7) {
+	width: 9%;
+}
+
+#current_substance table td:nth-child(3) {
+	width: 18%;
+	text-align: center;
+}
+
+#current_substance table td:nth-child(4) {
+	width: 14%;
+}
+
+
+#current_substance table td:nth-child(7) {
+	width: 12%;
+}
+
+#current_substance table td:nth-child(5),
+#current_substance table td:nth-child(6) {
+	width: 8%;
+}
+
+#current_substance table td:nth-child(8) {
+	width: 9%;
+}
+
+#current_substance table .invivo-sum-wrapper,
+#substance_summary2 table .invivo-sum-wrapper {
+	font-size: 14px;
+}
+
+#current-substance-div {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 9999;
+	background: #f5f5f6;
+}
+
+
+/*--------------------------------------------------*/
+/*    GENE, PATHWAY PHENOTYPES, ORTHOLOGY TABLES    */
+/*--------------------------------------------------*/
+
+/* =================== width ================== */
+
+.pathway-results-container {
+	padding-left: 38px;
+	padding-right: 38px;	
+}
+
+/* =================== rows ================== */
+
+#pathway_phenotypes table.dataTable > tbody > tr.odd,
+#pathway_phenotypes table.dataTable > tbody > tr.even, 
+#pathway_phenotypes table.dataTable > tbody > tr.odd.selected,
+#pathway_phenotypes table.dataTable > tbody > tr.even.selected,
+#orthology_table table.dataTable > tbody > tr.odd,
+#orthology_table table.dataTable > tbody > tr.even, 
+#orthology_table table.dataTable > tbody > tr.odd.selected,
+#orthology_table table.dataTable > tbody > tr.even.selected {
+	background-color: transparent;
+}
+
+/* =================== cells ================== */
+
+#pathway_phenotypes table.dataTable > tbody > tr.odd.selected td,
+#pathway_phenotypes table.dataTable > tbody > tr.even.selected td,
+#orthology_table table.dataTable > tbody > tr.odd.selected td,
+#orthology_table table.dataTable > tbody > tr.even.selected td {
+	background-color: #fff!important;
+}
+
+#gene_data table.dataTable thead th,
+#pathway_phenotypes table.dataTable thead th {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#gene_data table.dataTable tbody tr td,
+#pathway_phenotypes table.dataTable tbody tr td,
+#orthology_table table.dataTable tbody tr td {
+	padding: 4px 20px;
+	font-size:14px;
+	background-color: #fff;
+}
+
+#gene_data table.display.dataTable tbody > tr > td:first-child,
+#pathway_phenotypes table.display.dataTable tbody > tr > td:first-child,
+#orthology_table table.display.dataTable tbody > tr > td:first-child  {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#gene_data table.display.dataTable tbody > tr > td:last-child,
+#pathway_phenotypes table.display.dataTable tbody > tr > td:last-child,
+#orthology_table table.display.dataTable tbody > tr > td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+
+/*#pathway_phenotypes table.dataTable > tbody td:nth-child(2),*/
+#pathway_phenotypes table.dataTable > tbody td:nth-child(3) {
+	font-family: Roboto Mono;
+}
+
+/* =================== header (+ header information tables)================== */
+
+#substance_summary2 .filter div.dataTables_filter {
+	margin-bottom: 20px;
+}
+
+.information-table .filter input {
+	background-color: rgba(29, 58, 101, 0.1);
+	font-weight: 400;
+	border: none;
+}
+
+.information-table .filter input:active,
+.information-table .filter input:focus {
+	background-color: #fff;
+	font-weight: 400;
+	border: 1px solid #ccc;
+}
+
+#gene_data table.dataTable thead tr th,
+#pathway_phenotypes table.dataTable thead tr th,
+.information-table table.dataTable thead tr th { /* column names */
+	font-size: 14px;
+}
+
+#gene_data table.dataTable thead td,
+.information-table table.dataTable thead td { /* input forms */
+	padding-top: 11px; /* - 3px of border-spacing on td */
+	padding-bottom: 14px;
+	padding-left: 18px;
+	padding-right: 18px;
+	font-size: 14px;
+}
+
+#gene_data table.dataTable tbody::before,
+#pathway_phenotypes table.dataTable tbody::before {
+	content: "";
+	height: 6px;
+	display: block;
+}
+
+/* =================== buttons and filters ================== */
+
+
+.btn-default.action-button.shiny-bound-input.gene-btn {
+	border-color: transparent;
+	  -webkit-box-shadow: none;
+  	box-shadow: none!important; /* Overrides the box-shadow inset*/
+}
+
+div.disabled-gene-item {
+	padding: 5px 50px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 4px;
+	width: 111px;
+	font-size: 14px;
+}
+
+.gene-btn {
+	padding: 5px 40px;
+	width: 111px;
+	font-size: 14px;
+}
+
+#gene_data .form-group.has-feedback { /* filters for each column */
+	width: 111px;
+}
+
+#gene_data input.form-control {
+	background-color: rgba(29, 58, 101, 0.1);
+	color: #1D3A65;
+	border-radius: 5px;
+	border: none;
+	box-shadow: none;
+	font-size: 14px;
+	height: 32px;
+}
+
+#gene_data input.form-control:active,
+#gene_data input.form-control:focus,
+#pathway_phenotypes input.form-control:active,
+#pathway_phenotypes input.form-control:focus {
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	color: #1D3A65;
+	box-shadow: none;
+	font-size: 14px;
+}
+
+#gene_data input::-webkit-input-placeholder,
+#gene_data input::placeholder,
+#pathway_phenotypes input::-webkit-input-placeholder,
+#pathway_phenotypes input::placeholder {
+	color: #1D3A65;
+	font-size: 14px;
+}	
+
+
+/* =================== fixed footer ================== */
+
+#gene_data .bottom,
+#pathway_phenotypes .bottom {
+	font-size: 14px;
+}
+
+#gene_data .bottom,
+#orthology_table .bottom,
+#pathway_phenotypes .bottom,
+#substance_searchResult .bottom,
+#category_searchResult .bottom,
+#substance_pathways .bottom,
+#substance_mammalian .bottom,
+#substance_invitro .bottom,
+#substance_phenotypes .bottom { /* fixed footer for substance, substance information and pathway results */
+	position: fixed;
+	height: 6%;
+	bottom: 0;
+	left: 1%;
+	right: 1%;
+	border-top : 1px solid rgba(0, 0, 0, 0.2);
+	background: #f5f5f6;
+	padding-top: 6px;
+}
+
+#substance_summary2 .bottom {
+	border-top : 1px solid rgba(0, 0, 0, 0.2);
+	position: fixed;
+	bottom: 0;
+	height: 6%;
+	left: 1%;
+	width: 100%;
+	background: #f5f5f6;
+	padding-top:6px;
+}
+
+#substance_summary2 .bottom .dataTables_paginate {
+	position: fixed;
+	right: 1%;
+}
+
+/* =================== fixed header ================== */
+
+#gene_data table.fixedHeader-floating {/* fixed table header */
+	background: #f5f5f6;
+		}
+				
+#gene_data table.dataTable thead td {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#gene_data table.dataTable.fixedHeader-floating thead td {/* fixed table header */
+	background: #f5f5f6;
+	border-bottom: 1px solid transparent!important;
+		}
+		
+
+/* empty tables */
+
+table > tbody > tr > td.dataTables_empty {
+	font-family: 'Roboto';
+}
+
+#substance_pathways_summary table td.dataTables_empty {
+	background-color: #fff;
+	color: #1D3A65;
+}
+
+#substance_pathways_summary table tr.odd.selected > td.dataTables_empty {
+	background-color: #fff;
+}
+
+
+/* =================== tables of filter window ================== */
+
+
+#mammalianPhenotypes table.display.dataTable,
+#allInVitro table.display.dataTable,
+#nonMammalianPhenotypes table.display.dataTable {
+	padding-bottom: 150px;
+	width: 100%!important;
+}
+
+#mammalianPhenotypes table thead, 
+#allInVitro table thead,
+#nonMammalianPhenotypes table thead  {
+	display: none;
+}
+
+.filter-table table.dataTable tbody td.select-checkbox::before {
+	border: 1px solid #fff;
+}
+
+.filter-table table.dataTable tr.selected td.select-checkbox::after {
+	color: #fff;
+	text-shadow: none;
+}
+
+.filter-table table.dataTable > tbody > tr.odd,
+.filter-table table.dataTable > tbody > tr.even {
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.filter-table table.display.dataTable tbody tr.even.selected,
+.filter-table table.display.dataTable tbody tr.odd.selected {
+	background-color: transparent;
+}
+
+.filter-table table.display.dataTable > tbody > tr.selected td:not(:first-child){
+	background:  #fff!important; 
+}
+
+#mammalianPhenotypes table.display.dataTable tbody tr.odd td:first-child, /* nested tables don't have odd and even classes*/
+#mammalianPhenotypes table.display.dataTable tbody tr.even td:first-child,
+#mammalianPhenotypes table.display.dataTable > tbody > tr.odd.selected td:first-child,
+#mammalianPhenotypes table.display.dataTable > tbody > tr.even.selected td:first-child  {
+	background-color: #FFDE17!important;
+}
+
+#nonMammalianPhenotypes table.display.dataTable tbody tr.odd td:first-child, /* nested tables don't have odd and even classes*/
+#nonMammalianPhenotypes table.display.dataTable tbody tr.even td:first-child,
+#nonMammalianPhenotypes table.display.dataTable > tbody > tr.odd.selected td:first-child,
+#nonMammalianPhenotypes table.display.dataTable > tbody > tr.even.selected td:first-child  {
+	background-color: #EA3CA4!important;
+}
+
+#allInVitro table.display.dataTable tbody tr td:first-child,
+#allInVitro table.display.dataTable > tbody > tr.selected td:first-child {
+	background-color: #FF8A00!important;
+}
+
+.filter-table table {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.filter-table table td {
+	background-color: #fff;
+	font-size: 14px;
+}
+
+.filter-table table tbody tr {
+ 	border-radius: 5px;	
+}
+
+
+/*** select buttons ***/
+
+.filter-table div.dt-buttons {
+	position: fixed;
+	bottom: 1%;
+	z-index: 99999;
+}
+
+#allInVitro button.dt-button:not(.disabled):hover, /* for override */
+#allInVitro button.dt-button:not(.disabled):focus,
+#allInVitro button.dt-button:not(.disabled):active,
+#nonMammalianPhenotypes button.dt-button:not(.disabled):hover, /* for override */
+#nonMammalianPhenotypes button.dt-button:not(.disabled):focus,
+#nonMammalianPhenotypes button.dt-button:not(.disabled):active,
+#mammalianPhenotypes button.dt-button:not(.disabled):hover, /* for override */
+#mammalianPhenotypes button.dt-button:not(.disabled):focus,
+#mammalianPhenotypes button.dt-button:not(.disabled):active,
+.filter-table button.dt-button:not(.disabled):hover,
+.filter-table button.dt-button:not(.disabled):focus,
+.filter-table button.dt-button:not(.disabled):active,
+.filter-table button.dt-button.active:not(.disabled),
+.filter-table button.dt-button.active:not(.disabled):hover:not(.disabled) {
+  background-color: #fff;
+  color: #1D3A65;
+  -webkit-box-shadow: none;
+  box-shadow: none!important; /* Overrides the box-shadow inset*/
+  background-image: none!important;
+  border-radius: 5px;
+  border: none;
+  outline: none!important;
+  padding: 6px 12px;
+}
+
+.filter-table button.dt-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  -moz-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2);
+  -webkit-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2);
+   box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2); /* Overrides the box-shadow inset*/
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  color: #fff;
+  border: none;
+  outline: none!important; /* Overrides chrome outline */
+  background-image: none!important;
+  border-radius: 5px;
+  padding: 6px 12px;
+}
+	
+.filter-table button.dt-button.disabled,
+.filter-table button.dt-button.disabled:hover,
+.filter button.dt-button.disabled:active {
+  background-color: rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.4);
+  -webkit-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.4);
+   box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.4); /* Overrides the box-shadow inset*/
+   background-image: none;
+   border-radius: 5px;
+    padding: 6px 12px;
+	
+}	
+
+/* =================== pathway phenotypes table ================== */
+
+
+#pathway_phenotypes table.dataTable thead th
+/*.information-table table.dataTable thead th*/ {
+	padding-left: 20px;
+}
+
+/*.information-table table.dataTable thead .sorting,*/
+#pathway_phenotypes table.dataTable thead .sorting,
+#gene_data table.dataTable thead .sorting,
+#orthology_table table.dataTable thead .sorting,
+/*.information-table table.dataTable thead .sorting_asc,*/
+#pathway_phenotypes table.dataTable thead .sorting_asc,
+#gene_data table.dataTable thead .sorting_asc,
+#orthology_table table.dataTable thead .sorting_asc,
+/*.information-table table.dataTable thead .sorting_desc,*/
+#pathway_phenotypes table.dataTable thead .sorting_desc,
+#gene_data table.dataTable thead .sorting_desc,
+#orthology_table table.dataTable thead .sorting_desc {
+	background-position: center left!important;
+}
+
+
+#pathway_phenotypes table.dataTable thead td { /* input forms */
+	padding-top: 11px; /* - 3px of border-spacing on td */
+	padding-bottom: 14px;
+	padding-left: 0;
+	padding-right: 18px;
+	font-size: 14px;
+}
+
+#gene_data table.dataTable thead .sorting,
+#orthology_table table.dataTable thead .sorting,
+/*.information-table table.dataTable thead .sorting,*/
+#gene_data table.dataTable thead .sorting_asc,
+#orthology_table table.dataTable thead .sorting_asc,
+/*.information-table table.dataTable thead .sorting_asc,*/
+#gene_data table.dataTable thead .sorting_desc,
+#orthology_table table.dataTable thead .sorting_desc
+/*.information-table table.dataTable thead .sorting_desc */  {
+	padding-left: 20px;
+}
+
+
+#pathway_phenotypes input.form-control {
+	background-color: rgba(29, 58, 101, 0.1);
+	color: #1D3A65;
+	border-radius: 5px;
+	border: none;
+	box-shadow: none;
+	font-size: 14px;
+	height: 32px;
+	padding-left: 20px;
+}

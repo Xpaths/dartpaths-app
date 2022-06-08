@@ -1,0 +1,2041 @@
+/****************************************/
+/* CUSTOM CSS                           */
+/*                                      */
+/* author:                              */
+/*   elisabeth.deviere@openanalytics.eu */
+/****************************************/
+
+
+/*--------------------------------------------------*/
+/*                  GENERAL STYLE                   */
+/*--------------------------------------------------*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
+
+body {
+font-family: 'Roboto', sans-serif;
+font-style: normal;	
+background-color: #f5f5f6;
+line-height: 1.4;
+font-size: 16px;
+}
+
+body > .container-fluid {
+	padding: 0!important;
+	margin: 0!important;
+	overflow-x:hidden;
+	
+}
+
+h1, h2, h3, h4, h5, h6, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+	color: #1D3A65;
+	text-decoration: none;
+}
+
+body {
+	color: #1D3A65;
+}
+
+a {
+	color: #488df4;
+}
+
+a:hover, a:focus, a:active {
+	color: #488df4;
+	text-decoration: underline;
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  
+}
+
+
+.content-wrap {
+	min-height: auto;
+	padding-bottom: 150px; /* Footer height */
+}
+
+.content {
+	min-height: auto;
+}
+
+.fixed-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px; /* Footer height */
+}
+
+.flex-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+/* contact links */
+
+.contact-link, .contact-link:active, .contact-link:hover, .contact-link:focus {
+	margin-left: 8px;
+	background-color: #1D3A65;
+	color: #fff;
+	border-color: transparent;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+#InvitroDetailsOverview .contact-link {
+	font-size: 12px;
+}	
+
+
+.flex-item {
+	margin-right: 4px;
+}
+
+.contact-div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
+}
+
+/*--------------------------------------------------*/
+/*                    NAVIGATION                    */
+/*--------------------------------------------------*/
+
+
+nav {
+	background-color: #1D3A65;
+	height: 50px;
+}
+
+.navbar {
+	border-radius: 0;
+	display: flex;
+	align-items: center;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.navbar-brand { /* home-link */
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #214273;
+	-webkit-transition: background-color 0.15s ease-in-out;	
+	-o-transition: background-color 0.15s ease-in-out;	
+	transition: background-color 0.15s ease-in-out;	
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+	color: #fff;
+	background-color: #1D3A65;
+}
+
+@media (min-width: 1200px) {
+	.navbar-brand {
+		padding-left: 55px;
+		padding-right: 55px;
+	}
+}
+
+.nav-item,
+.nav-item:hover,
+.nav-item:focus { /* back to search results link */
+	color: #fff;
+	font-size: 16px;
+	font-weight: normal;
+	padding-left: 20px;
+}
+
+.navbar-text, .navbar-text:hover, .navbar-text:focus, .navbar-text:active { /* About DARTpaths link */
+	position: absolute;
+	right: 12%;
+	color: #fff;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+span.logout {
+  	display: flex;
+  	align-items: center;
+} 
+
+a.logout-link, a.logout-link:hover, a.logout-link:focus, a.logout-link:active {
+	position: absolute;
+	right: 3%;
+	display: flex;
+	text-decoration: none;
+	align-items: center;
+	color: #fff;
+	font-weight: normal;
+	text-decoration: none;	
+	border: none;
+	font-size: 14px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+}
+
+
+a.logout-link:before {
+  	content: "";
+  	background: url("../images/logout.svg") no-repeat;
+  	width: 20px;
+  	height: 20px;
+  	margin-right: 6px;
+  	display: flex;
+}
+
+/*--------------------------------------------------*/
+/*                   LANDING PAGE                   */
+/*--------------------------------------------------*/
+
+
+/* =================== Title ================== */
+
+
+h1.title-app {
+	font-weight: bold;
+	font-size: 64px;
+	line-height: 75px;
+	color: #1D3A65;
+	margin-top: 5rem;	
+}
+
+p.subtitle {
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 23px;
+	color: #1D3A65;
+	margin-top: 4rem;	
+}
+
+.search-box h2 {
+	font-size: 32px;
+	color: #1D3A65;
+}
+
+
+/* =================== Panels ================== */
+
+/*** container of the 3 search panels ***/
+
+.box-wrapper {
+	margin-top: 5%;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+/*** panels ***/
+
+.search-box {
+	background: #fff;
+	border-radius : 5px;
+	flex-basis: 50%;
+	border: none;
+	padding: 55px;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+}
+
+.help-block {
+	color: #488df4;
+	font-size: 16px;
+	font-style: italic;
+}
+
+.title-box-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#explore-box .title-box-container {
+	padding-bottom: 65px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 55px;
+}
+
+#explore-box .title-icon {
+  	background: url("../images/pathway-icon.svg") no-repeat;
+  	background-size: 65px 43px;
+  	width: 65px;
+  	height: 43px;
+  	margin: 0 25px 0 0;
+}
+
+#search-box .title-icon {
+  	background: url("../images/chemical-icon.svg") no-repeat;
+  	background-size: 56px 62px;
+  	width: 56px;
+  	height: 62px;
+  	margin: 0 25px 0 0;	
+}
+
+
+/*** tabs ***/
+
+.search-box .nav-tabs {
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
+.search-box .nav-tabs > li {
+	width: 50%;
+}
+
+.search-box .nav-tabs > li > a {
+	color: #ccc;
+	font-size: 16px;
+	-webkit-transition: color 0.15s ease-in-out;	
+	-o-transition: color 0.15s ease-in-out;	
+	transition: color 0.15s ease-in-out;	
+}
+
+.search-box .nav-tabs > li > a:hover,
+.search-box .nav-tabs > li > a:focus {
+	border-color: transparent;
+	background: transparent;
+	color: #488df4;
+}
+
+.search-box .nav-tabs > li.active > a {
+	border: 2px solid transparent;
+	border-bottom-color: #488df4;
+	color: #488df4;
+}
+
+
+
+/* =================== radio buttons ================== */
+
+input[type="radio"]{
+	-webkit-appearance: none;
+    	-moz-appearance: none;
+    	appearance: none;
+}
+
+.search-box .radio-inline label {
+	color: #1D3A65;
+	font-size: 15px;
+	margin-bottom: 2px;
+}
+
+*,*:focus,*:hover, *:active{
+    	outline:none!important;
+}
+
+.radio-primary input[type="radio"]+label::after {
+ 	background-color:#488DF4;
+ 	outline: none!important;
+}
+.radio-primary input[type="radio"]:checked+label::before {
+ 	border-color:#488DF4;
+ 	outline: none!important;
+}
+.radio-primary input[type="radio"]:checked+label::after {
+ 	background-color:#488DF4;
+	outline: none!important;
+}
+
+.awesome-radio {
+	padding-left: 20px;
+}
+
+.search-box .radio span {
+	color: #1D3A65;
+}
+
+.search-box .shiny-options-group {
+	margin-top: 0px!important;
+}
+
+.search-box .form-group {
+	margin-bottom: 0px;
+}
+
+.search-box .radio {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.search-box .checkbox-inline .radio-inline {
+	vertical-align: baseline;
+}
+
+/* =================== Form control and input ================== */
+
+
+.search-box .form-control { 
+	background-color: #f5f5f6;
+	border-radius: 5px;
+	border: none;
+	color: #1D3A65;
+	box-shadow: none; 
+	-webkit-box-shadow: none; 
+	height: 60px;
+	font-size: 16px;
+}
+
+.search-box .form-control:focus,
+.search-box .form-control:active {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background: #fff;
+	color: #1D3A65;
+}
+
+.multiple-form-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.multiple-form-container > div {
+	flex-basis: 49%;
+	justify-content: space-around;
+}
+
+.form-item-with-dash {
+	display: flex;
+	flex-direction: row;
+}
+
+.dash {
+	margin-right: 3px;
+	margin-left: 3px;
+}
+
+.dash {
+	margin-top: 20px;
+}
+
+.search-box input::-webkit-input-placeholder,
+.search-box input::placeholder {
+	font-style: italic;
+	color: #000000;
+	opacity: 0.4;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+
+/* =================== dropdowns ================== */
+
+.search-box .selectize-input > input {
+	width: 85%!important;
+}
+
+.search-box .selectize-input {
+	background-color: #f5f5f6;
+	border-radius: 5px;
+	border: none;
+	height: 60px;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+}
+
+.search-box .selectize-control {
+	height: 60px;
+}
+
+.search-box .selectize-input.items.not-full::after {
+	color: #1D3A65;
+}
+
+.search-box .selectize-input > * {
+	position: absolute;
+	color: #1D3A65;
+	width: 85%;
+}
+
+.selectize-input.focus {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	display: flex;
+	align-items: center;
+}
+
+.selectize-input.items.not-full.has-options.focus.input-active {
+	color: #1D3A65;
+	font-size: 16px;
+	background: #fff;
+	align-items: center;
+	display: flex;
+}
+
+.selectize-input.items.has-options.full.has-items.focus.input-active.dropdown-active {
+	background: #fff;
+	color: #1D3A65;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+}
+
+.search-box .selectize-control.single .selectize-input:after { /* dropdown of substance info page */
+	content: ' ';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 17px;
+	margin-top: -12px;
+	width: 16px;
+	height: 16px;
+	border-style: solid;
+	border-width: 0px 3px 3px 0px;
+	border-color: #1D3A65;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	margin-right: 5px;
+}
+
+.search-box .selectize-control.single .selectize-input.dropdown-active:after { /* dropdown of substance info page */
+	content: ' ';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 17px;
+	margin-top: -3px;
+	width: 16px;
+	height: 16px;
+	border-style: solid;
+	border-width: 0px 3px 3px 0px;
+	border-color: #1D3A65;
+	transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	margin-right: 5px;
+}
+
+.search-box .selectize-dropdown,
+.select-evidence .selectize-dropdown {
+	border: none; /* removes border in search for a chemical box*/
+	box-shadow: none; 
+	-webkit-box-shadow: none;
+}
+
+div.selectize-dropdown-content {/* background of open dropdowns in both boxes */
+	background: #fff;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* add shadow to dropdown in both boxes*/
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	color: #1D3A65;
+}
+
+#explore-box .selectize-control,
+.search-box .selectize-control {
+	margin-bottom: 0;
+}
+
+/* =================== action buttons ================== */
+
+.search-box .action-button,
+.search-box .action-button:active,
+.search-box .action-button:focus {
+	background-color: #488DF4;
+	border-radius: 5px;
+	width: 100%;
+	height: 60px;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 23px;
+	border: none;
+	outline: none;
+}
+
+.search-box button img {
+	padding-left: 5px;
+}
+
+#category_search_constituents.btn[disabled],
+#category_search_members.btn[disabled],
+#substance_search.btn[disabled],
+#pathway_explore.btn[disabled]{
+	opacity: .75;
+}
+
+#category_search_constituents.btn[disabled]:hover,
+#category_search_members.btn[disabled]:hover,
+#substance_search.btn[disabled]:hover,
+#pathway_explore.btn[disabled]:hover{
+	background-color: #488DF4;
+	transition: opacity 0.2s ease-out;
+}
+
+
+
+/* =================== footer ================== */
+
+footer {
+	background-color: #fff;
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1200px) {
+	footer {
+		display: none;
+	}
+}
+
+#logo-wrapper {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 20px;
+}
+
+/*--------------------------------------------------*/
+/*                     INFO PAGE                    */
+/*--------------------------------------------------*/
+
+a.info-title, a.info-title:hover, a.info-title:focus, a.info-title:active {
+	text-decoration: none;
+}
+
+#info_showIntro > h2 {
+	margin-top: 40px;
+}
+
+.info-title h2 {
+	margin-bottom: 20px;
+}
+
+.info-logo-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.info-logo-wrapper > a {
+	margin-bottom: 50px;
+}	
+
+/*--------------------------------------------------*/
+/*             SUSBTANCE RESULTS PAGE               */
+/*--------------------------------------------------*/
+
+.substance-helptext {
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 80%;
+}
+
+div.page-title {
+	background: #fff;
+	height: 100px;
+	padding-left: 10px;
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+}
+
+.page-title h2 {
+	margin-top: 0;
+	color: #1D3A65;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+@media (min-width: 1200px){
+	.page-title h2 {
+		padding-left: 30px;
+	}
+}
+
+
+/* =================== filter above substance table ================== */
+
+
+#substanceInputValue { /* substances input value in title bar */
+	display: inline;
+	}
+	
+#categoryInputValue { /* UVCBs input value in title bar */
+	display: inline;
+	}	
+
+.filter-form {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right:auto;
+	padding-left:0;
+}
+
+.filter-substances .help-block {
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+
+div#substance-dropdowns {
+	display: flex;
+	flex-direction: row;
+	flex-basis: 100%;
+}
+
+div.filter-substances {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.filter-form .selectize-input {
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #1D3A65;
+	border: none;
+	height: 40px;
+	display: flex;
+	align-items: center;
+}
+
+#selectize-substance { /* first selectize dropdown*/
+	padding-left: 0;
+	padding-right: 0;
+	flex-basis: 100%;
+}
+
+#selectize-substance .shiny-input-container:not(.shiny-input-container-inline) {/* first selectize dropdown*/
+	width:100%;
+	display: flex;
+}
+
+#selectize-substance .shiny-input-container:not(.shiny-input-container-inline) > div {/* first selectize dropdown*/
+	flex-basis: 99%;
+}
+
+#selectize-number { /* second selectize dropdown */
+	padding-right: 0;
+}
+
+#selectize-number .shiny-input-container:not(.shiny-input-container-inline) {/* second selectize dropdown */
+	width: 100px;
+	margin-right:7px;
+}
+
+.go-button {/* select button */
+	width: 80px;
+}
+
+
+button#select_substance {/* button to validate the selection of the substance */
+	background-color: #488DF4;
+	border-radius: 5px;
+	height: 40px;
+	font-size: 16px;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	color: #fff;
+}
+
+
+/*--------------------------------------------------*/
+/*             PATHWAY RESULTS PAGE                 */
+/*--------------------------------------------------*/
+
+
+/* =================== title bar ================== */
+
+div.page-title.pathway-title-bar {
+	height: 270px;
+}
+
+/*** bar plot ***/
+
+
+#gene_barplot_overview rect, #gene_barPlot rect{
+	cursor: default;
+}
+
+div.bar-plot-container > div#gene_barPlot {
+	height: 200px!important;
+	width: 100%!important;	
+}
+
+#gene_barPlot .plot-container > div.svg-container {
+	height: 200px;
+}
+
+
+
+/*** titles pathway results ***/
+
+.pathway-title-bar h2 {
+	font-size: 16px;
+	font-weight: 700;
+	color: #488df4;
+	padding-left: 0;
+	position: absolute;
+	top: 85px;
+}
+
+
+div#right-pathway-title-bar {
+	padding-left: 60px;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	padding-top: 35px;
+}
+
+div#left-pathway-title-bar {
+	display: flex;
+	flex-direction: column;
+	padding-top: 10px;
+	width: 50%;
+	padding-left: 60px;
+	border-right: 2px solid rgba(0, 0, 0, 0.2);
+	padding-bottom: 40px;
+}
+
+#left-pathway-title-bar > div {
+	margin-left: -12px;
+}
+
+/*** reactome link ***/
+
+#reactome-btn-div {
+	padding-left: 0;
+}
+
+button#gene_showReactome {
+	background: none;
+	color: #1D3A65;
+	border: none;
+	text-align: left;
+	margin-top: -10px;
+}
+
+button#gene_showReactome:hover,
+button#gene_showReactome:focus,
+button#gene_showReactome:active {
+	background: none;
+	color: #1D3A65;
+	text-decoration: underline;
+	border: none;
+}
+
+/*** pathway results dropdown ***/
+
+
+#pathway-dropdown-div {
+	padding-left: 0;
+	width: 75%;
+}
+
+#gene_pathwayOut .selectize-input > * {
+	width: 90%;
+	line-height: 1.2;
+}
+
+#gene_pathwayOut .selectize-control.single .selectize-input:after {
+	content: ' ';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 17px;
+	margin-top: -12px;
+	width: 16px;
+	height: 16px;
+	border-style: solid;
+	border-width: 0px 3px 3px 0px;
+	border-color: #1D3A65;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	margin-right: 5px;
+}
+
+#gene_pathwayOut .selectize-control.single .selectize-input.dropdown-active:after {
+	content: ' ';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 17px;
+	margin-top: -3px;
+	width: 16px;
+	height: 16px;
+	border-style: solid;
+	border-width: 0px 3px 3px 0px;
+	border-color: #1D3A65;
+	transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	margin-right: 5px;
+}	
+
+#gene_pathwayOut .selectize-input {
+	display: flex;
+	align-items: center;
+}
+
+#gene_pathwayOut .selectize-input {
+	background-color: #fff;
+	border-radius: 5px;
+	border: none;
+	min-height: 70px;
+	font-size: 22px;	
+	color: #000;
+	background: rgba(29, 58, 101, 0.1);
+}
+
+#gene_pathwayOut .selectize-control {
+	min-height: 70px;
+}
+
+#gene_pathwayOut .selectize-input.items.not-full::after {
+	color: #1D3A65;
+}
+
+#gene_pathwayOut .selectize-input > * {
+	position: absolute;
+	font-weight: bold;
+}
+
+#gene_pathwayOut .selectize-input.focus {
+	border: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	background: rgba(29, 58, 101, 0.1);
+}
+
+#gene_pathwayOut .selectize-input.items.not-full.has-options.focus.input-active {
+	color: #000;
+	font-size: 16px;
+	background: rgba(29, 58, 101, 0.1);
+}
+
+#gene_pathwayOut .selectize-input.items.has-options.full.has-items.focus.input-active.dropdown-active {
+	background: rgba(29, 58, 101, 0.1);
+	color: #000;
+	font-size: 22px;
+}
+
+#gene_pathwayOut .selectize-dropdown {
+	border: none; /* removes border in search for a chemical box*/
+	box-shadow: none; 
+	-webkit-box-shadow: none;
+}
+
+#gene_pathwayOut .selectize-dropdown-content {/* background of open dropdown */
+	background: #fff;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	color: #000;
+}
+
+#gene_pathwayOut .form-group.shiny-input-container {
+	margin-bottom: 0;
+}
+
+
+/*** tabs for gene table and phenotypes table ***/
+
+#gene-table-div {
+	margin-top: 20px;
+}
+
+#gene_data .help-block {
+	margin-top: 15px;
+}
+
+
+#pathway-search-tabs {
+	background-color: #f5f5f6;
+}
+
+
+#pathway-search-tabs.nav.nav-tabs {
+	border-bottom: 1px solid transparent;
+	margin-bottom: 20px;
+}
+
+#pathway-search-tabs.nav.nav-tabs > li.active > a {
+	border: 1px solid transparent;
+	border-bottom-color: #488df4;
+	color: #488df4;
+}
+
+
+
+
+/*--------------------------------------------------*/
+/*             SUBSTANCE INFORMATION PAGE           */
+/*--------------------------------------------------*/
+
+/* =================== nav tabs (+ pathway results page) ================== */
+
+#tabs, #tabs-loading, #tabs-loading-cat {
+	background-color: #f5f5f6;
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-moz-box-shadow:  0px 4px 20px rgba(0, 0, 0, 0.1); 
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 	
+}
+
+#tabs.nav.nav-tabs, #tabs-loading.nav.nav-tabs, #tabs-loading-cat.nav.nav-tabs {
+	border: none;
+}
+
+#tabs.nav.nav-tabs > li.active > a,
+#tabs-loading.nav.nav-tabs > li.active > a,
+#tabs-loading-cat.nav.nav-tabs > li.active > a,
+#pathway-details-tabs.nav.nav-tabs > li.active > a,
+#pathway-details-tabs-loading.nav.nav-tabs > li.active > a,
+#pathway-details-tabs-loading-cat.nav.nav-tabs > li.active > a,
+.modal-body .nav.nav-tabs > li.active > a {
+	border: none;
+}
+
+
+#pathway-details-tabs.nav.nav-tabs > li > a,
+#pathway-details-tabs-loading.nav.nav-tabs > li > a,
+#pathway-details-tabs-loading-cat.nav.nav-tabs > li > a {
+	border-bottom: none;
+}
+
+
+#tabs.nav > li > a,
+#tabs-loading.nav > li > a,
+#tabs-loading-cat.nav > li > a,
+.modal-body .nav > li > a,
+#pathway-search-tabs.nav > li > a {
+	padding: 15px 15px;
+	color: #1D3A65;
+	border: none;
+	font-weight:400;
+}
+
+
+#pathway-details-tabs.nav > li > a,
+#pathway-details-tabs-loading.nav > li > a,
+#pathway-details-tabs-loading-cat.nav > li > a {
+	padding: 15px 15px;
+	color: #1D3A65;
+	border: none;
+	font-weight:500;
+}
+
+
+#pathway-details-tabs.nav.nav-tabs,
+#pathway-details-tabs-loading.nav.nav-tabs,
+#pathway-details-tabs-loading-cat.nav.nav-tabs {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	margin-bottom: 12px; 
+	padding-bottom: 0px;
+	font-weight: 500;
+}
+
+#pathway-details-tabs.nav > li > a,
+#pathway-details-tabs-loading.nav > li > a,
+#pathway-details-tabs-loading-cat.nav > li > a,
+.modal-body .nav > li > a {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 0;
+	margin-right: 15px;
+	border-radius: 5px;
+}
+
+#pathway-details-tabs.nav > li > a,
+#pathway-details-tabs-loading.nav > li > a,
+#pathway-details-tabs-loading-cat.nav > li > a {
+	padding : 4px 20px;
+}
+
+#tabs.nav-tabs > li > a:hover,
+#tabs.nav-tabs > li > a:focus,
+#tabs-loading.nav-tabs > li > a:hover,
+#tabs-loading.nav-tabs > li > a:focus,
+#tabs-loading-cat.nav-tabs > li > a:hover,
+#tabs-loading-cat.nav-tabs > li > a:focus,
+.modal-body .nav-tabs > li > a:hover, 
+.modal-body .nav-tabs > li > a:focus,
+#pathway-search-tabs.nav-tabs > li > a:hover,
+#pathway-search-tabs.nav-tabs > li > a:focus {
+	border: none;
+	background: transparent;
+	color: #488df4;
+	font-weight:400;
+}
+
+#tabs.nav-tabs > li.active > a,
+#tabs-loading.nav-tabs > li.active > a,
+#tabs-loading-cat.nav-tabs > li.active > a,
+#pathway-search-tabs.nav-tabs > li.active > a,
+#pathway-details-tabs.nav-tabs > li.active > a,
+#pathway-details-tabs-loading.nav-tabs > li.active > a,
+#pathway-details-tabs-loading-cat.nav-tabs > li.active > a,
+.modal-body .nav-tabs > li.active > a {
+	border: none;
+	color: #488df4;
+	background: transparent;
+	font-weight:400;
+}
+
+.modal-body .nav-tabs > li > a,
+.modal-body .nav-tabs > li.active > a {
+	font-weight: 500;
+	font-size: 12px;
+}
+
+#pathway-details-tabs.nav-tabs > li.active > a,
+#pathway-details-tabs-loading.nav-tabs > li.active > a,
+#pathway-details-tabs-loading-cat.nav-tabs > li.active > a,
+.modal-body .nav-tabs > li.active > a {
+	border: none;
+	color: #1D3A65;
+	background: rgba(29, 58, 101, 0.1);
+	font-weight:500;
+}
+
+#pathway-details-tabs.nav-tabs > li > a:hover,
+#pathway-details-tabs.nav-tabs > li > a:focus,
+#pathway-details-tabs-loading.nav-tabs > li > a:hover,
+#pathway-details-tabs-loading.nav-tabs > li > a:focus,
+#pathway-details-tabs-loading-cat.nav-tabs > li > a:hover,
+#pathway-details-tabs-loading-cat.nav-tabs > li > a:focus,
+.modal-body .nav-tabs > li > a:hover,
+.modal-body .nav-tabs > li > a:focus {
+	color: #1D3A65;
+	background: rgba(29, 58, 101, 0.1);
+	font-weight:500;
+	font-size: 12px;
+}
+
+
+/* =================== sidebar overview ================== */
+
+#sidebar-overview, .sidebar-overview-loading {
+	background: #fff;
+	min-height: 89vh;
+}
+
+#substance_summary1_invitro_count,
+#substance_summary1_phenotypes_count,
+#substance_summary1_invivo_count {
+	padding-left: 40px;
+}
+
+#substance_summary1_phenotypes_mammalian > h2,
+#substance_summary1_phenotypes_mammalian > div,
+#substance_summary1_phenotypes_nonmammalian > h2, 
+#substance_summary1_phenotypes_nonmammalian > div {
+	padding-left: 40px;
+}
+
+/* =================== pathway overview ================== */
+
+#pathway-overview {
+	min-height: 89vh;
+	
+}
+
+h2.table-title {
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 25px;
+}
+
+/*** filter and recalculate ***/
+
+.dropdown-filter-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#recalculate_btn_subst, 
+#recalculate_btn_subst:hover,
+#recalculate_btn_subst:active, 
+#recalculate_btn_subst:focus,
+#recalculate_btn_subst_loading, 
+#recalculate_btn_subst_loading:hover,
+#recalculate_btn_subst_loading:active, 
+#recalculate_btn_subst_loading:focus,
+#recalculate_btn_cat_loading, 
+#recalculate_btn_cat_loading:hover,
+#recalculate_btn_cat_loading:active, 
+#recalculate_btn_cat_loading:focus  {
+	font-size: 12px;
+	color: #1D3A65;
+	font-weight: 500;
+	background-color: transparent;
+	border: 1px solid transparent;
+	box-shadow: none;
+}
+
+/*** pathway dropdown ***/
+
+.select-evidence {
+	font-size: 12px;
+}
+
+.select-evidence .selectize-input {
+	font-size: 12px;
+}
+
+.select-evidence .selectize-control.single .selectize-input:after { /* dropdown of substance info page */
+	content: ' ';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 17px;
+	margin-top: -12px;
+	width: 14px;
+	height: 14px;
+	border-style: solid;
+	border-width: 0px 2px 2px 0px;
+	border-color: #1D3A65;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	margin-right: 5px;
+}
+
+.select-evidence .selectize-control.single .selectize-input.dropdown-active:after { /* dropdown of substance info page */
+	content: ' ';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 17px;
+	margin-top: -3px;
+	width: 14px;
+	height: 14px;
+	border-style: solid;
+	border-width: 0px 2px 2px 0px;
+	border-color: #1D3A65;
+	transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	margin-right: 5px;
+}
+
+div.select-evidence {
+	margin-top: -15px;
+}
+
+.select-evidence .selectize-input {
+	background-color: rgba(29, 58, 101, 0.1);
+	border-radius: 5px;
+	border: none;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	font-weight: 500;
+	color: rgba(29, 58, 101);
+	min-width: 340px;
+}
+
+.select-evidence .selectize-input.items.not-full.has-options.focus.input-active {
+	color: #1D3A65;
+	font-size: 16px;
+	font-weight: 500;
+	background: rgba(29, 58, 101, 0.1);
+	align-items: center;
+	display: flex;
+}
+
+.select-evidence .selectize-input.items.has-options.full.has-items.focus.input-active.dropdown-active {
+	color: #1D3A65;
+	font-size: 12px;
+	background: rgba(29, 58, 101, 0.1);
+	align-items: center;
+	display: flex;
+	font-weight: 500;
+}
+
+.select-evidence .selectize-control.single .selectize-input > div[data-value="scoreNAM"]:before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #EA3CA4;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.select-evidence .selectize-control.single .selectize-input > div[data-value="scoreMammalian"]:before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FFDE17;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.select-evidence .selectize-control.single .selectize-input > div[data-value="scoreInVitro"]:before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FF8A00;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.select-evidence .selectize-control.single .selectize-input > div[data-value="scoreAll"]:before  {
+	content: '';
+	background: url("../images/scoreAllZero.svg") no-repeat;
+	background-size: 21px 12px;
+	width: 21px;
+	height: 12px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+
+.select-evidence .selectize-control.single .selectize-input > div[data-value="scoreAllWithoutZero"]:before {
+	content: '';
+	background: url("../images/scoreAll.svg") no-repeat;
+	background-size: 21px 12px;
+	width: 21px;
+	height: 12px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+.select-evidence div.selectize-dropdown-content > div {
+	line-height: 1.8;
+}
+
+.select-evidence div.selectize-dropdown-content > div[data-value="scoreAll"]:before {
+	content: '';
+	background: url("../images/scoreAllZero.svg") no-repeat;
+	background-size: 21px 12px;
+	width: 21px;
+	height: 12px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+
+.select-evidence div.selectize-dropdown-content > div[data-value="scoreAllWithoutZero"]:before {
+	content: '';
+	background: url("../images/scoreAll.svg") no-repeat;
+	background-size: 21px 12px;
+	width: 21px;
+	height: 12px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+.select-evidence div.selectize-dropdown-content > div[data-value="scoreInVitro"]:before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FF8A00;
+	border-radius: 50%;
+	margin-right: 19px;
+}
+
+.select-evidence div.selectize-dropdown-content > div[data-value="scoreMammalian"]:before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FFDE17;
+	border-radius: 50%;
+	margin-right: 19px;
+}
+
+.select-evidence div.selectize-dropdown-content > div[data-value="scoreNAM"]:before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #EA3CA4;
+	border-radius: 50%;
+	margin-right: 19px;
+}
+
+.select-evidence > .form-group {
+	margin-bottom: 5px;
+	
+}
+/* =================== pathway details ================== */
+
+/*** overview tab tables ***/
+
+.pathway-details-number {
+	font-size: 20px;
+	color: #000;
+	font-weight: 400;
+	font-family: Roboto Mono;
+	display: inline;
+}
+
+.pathway-details-total {
+	font-size: 12px;
+	color: rgba(0, 0, 0, 0.2);
+	font-weight: 400;
+	font-family: Roboto Mono;
+	display: inline;
+}
+
+.pathway-details-entries {
+	font-size: 12px;
+	color: rgba(0, 0, 0, 0.2);
+	font-weight: 400;
+	font-family: 'Roboto';
+	display: inline;
+}
+
+#pathway-details .tabbable,
+#pathway-details-loading .tabbable,
+#pathway-details-loading-cat .tabbable  {
+	font-size: 12px;
+}
+
+
+#phenotypes_details table.dataTable tbody td,
+#ranking_indiv_pathways table.dataTable tbody td {
+	font-size:13px;
+}
+
+#pathwayNameSelectedOverview > button#pathway_link,
+#pathwayNameSelectedOverview > button#pathway_link:focus {/* name of the selected pathway */
+	color: #000;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.2;
+	margin-bottom: 10px;
+	-moz-box-shadow: none;
+  	-webkit-box-shadow: none;
+  	box-shadow: none;
+	border: none;
+	background-color: rgba(29, 58, 101, 0.1);
+}
+
+span.pathway-link-text {
+	font-weight: normal;
+	text-decoration: none;
+}
+
+
+#pathwayNameSelectedOverview .btn {
+	white-space: normal!important;
+}
+
+#pathway_link.btn {
+	text-align: left;	
+}
+
+#pathwayNameSelectedOverview > button#pathway_link:hover,
+#pathwayNameSelectedOverview > button#pathway_link:active {
+	background-color: rgba(29, 58, 101, 0.1);
+	box-shadow: none;
+	-moz-box-shadow: none;
+  	-webkit-box-shadow: none;
+	color: #000;
+	cursor: pointer;
+}
+
+
+#gene_showReactome_overview, /* reactome link */
+span.pathway-link-text /* pathway link */{ 
+	background: none;
+	color: #1D3A65;
+	border: none;
+	text-align: left;
+	margin-left:-10px;
+	font-size: 12px;
+	padding-left: 12px;
+}
+
+#gene_showReactome_overview {
+	text-decoration: underline;
+}
+
+#gene_showReactome_overview:hover,
+#gene_showReactome_overview:focus,
+#gene_showReactome_overview:active {
+	background: none;
+	color: #1D3A65;
+	text-decoration: underline;
+	border: none;
+}
+
+#score-wrapper {
+	display: flex;
+	justify-content: flex-start;
+}
+
+#summaryScoreOverview {
+	margin-right: 20px;
+}
+
+#summaryScoreOverview > div {
+	color: #000;
+	font-family: Roboto Mono;
+	font-size: 20px;
+}
+
+#nGenesPathwayOverview > div {
+	margin-left: 20px;
+	color: #000;
+	font-family: Roboto Mono;
+	font-size: 20px;
+}
+
+.details-overview-container, .details-overview-container-loading {
+	background-color: #fff;
+	padding-top: 22px;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 22px;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+}
+
+.details-overview-container-loading {
+	box-shadow: none;
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 100px;
+}
+
+#pathway-details,
+#pathway-details-loading,
+#pathway-details-loading-cat {
+	min-height: 89vh;
+	padding-left: 95px;
+	padding-right: 35px;
+}
+
+.overview-title,
+.overview-title:hover {
+	color: #488DF4;
+	font-weight: 500;
+	font-size: 12px;	
+}
+
+.info-right-sidebar-title,
+.info-right-sidebar-title:hover,
+.info-sidebar-title,
+.info-sidebar-title:hover {
+	color: #488DF4;
+	font-weight: 500;
+	font-size: 12px;	
+}
+
+.info-sidebar-title,
+.info-sidebar-title:hover {
+	margin-left: 40px;
+}
+
+.info-right-sidebar-title:hover,
+.info-sidebar-title:hover {
+	color: #488DF4;
+}
+
+.info-right-sidebar-title {
+	margin-left: 0px;
+}
+
+#plotOverview .bar-plot-container {
+	max-width: 400px;
+	overflow: auto;
+}
+
+div.bar-plot-container > div#gene_barplot_overview > div {
+	height: 160px!important;
+	width: 100%!important;
+	font-family: Roboto Mono;
+}
+
+
+#substance_summary1_phenotypes_mammalian > h2::before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FFDE17;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+#invitro-overview::before,
+#substance_summary1_invitro_count > h2::before,
+.modal-dialog .nav-tabs > li:nth-child(3) > a::before,
+#InvitroDetailsOverview > h2.info-right-sidebar-title::before /* right sidebar */{
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FF8A00;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+#substance_summary1_phenotypes_nonmammalian > div.info-sidebar-title::before {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #EA3CA4;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+#mam-overview::before /*left sidebar*/,
+.modal-dialog .nav-tabs > li:first-child > a::before,
+#MammalianPhenotypesOverview > h2::before /*right sidebar*/ {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #FFDE17;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+#nonmam-overview::before /*left sidebar*/,
+.modal-dialog .nav-tabs > li:nth-child(2) > a::before,
+#NAMPhenotypesOverview > h2::before /* right sidebar*/ {
+	content: '';
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	background: #EA3CA4;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.overview-helptext {
+	color: #000;
+	font-size: 12px;
+	font-style: normal;
+}
+
+.info-tab-title {
+	color: #1D3A65;
+	font-weight: 500;
+	font-size: 12px;
+	margin-bottom: 0;
+}
+
+/* Close cross button in modal */
+#modal-cross,
+#modal-cross:hover,
+#modal-cross:focus,
+#modal-cross:active {
+  background-color: #fff!important;
+  -moz-box-shadow: inset 100px 100px 100px #fff;
+  -webkit-box-shadow: inset 100px 100px 100px #fff;
+  box-shadow: inset 100px 100px 100px #fff; /* Overrides the box-shadow inset */
+  border: 1px solid transparent;
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  color: #1D3A65;
+  outline: none!important; /* Overrides chrome outline */
+}
+
+/* Add button */
+
+.custom-modal-footer .btn-default:hover,
+.custom-modal-footer .btn-default:focus,
+.custom-modal-footer .btn-default:active {
+  background-color: #fff;
+  color: #1D3A65;
+}
+
+.custom-modal-footer .btn-default {
+  background-color: rgba(255, 255, 255, 0.2);
+  -moz-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2);
+  -webkit-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2);
+   box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2); /* Overrides the box-shadow inset*/
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  color: #fff;
+  border: none;
+  outline: none!important; /* Overrides chrome outline */
+}
+
+.modal-header {
+	border-bottom: 1px solid transparent;
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)!important;
+	-moz-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)!important;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1)!important;
+	padding-bottom: 30px;
+	padding-top: 30px;
+}
+
+.modal-title, .modal-title:hover { 
+	color: #000;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.modal-footer {
+	background-color: #488df4;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	border-bottom-left-radius: 5px!important;
+	border-bottom-right-radius: 5px!important;
+	border-top: none!important;
+	left: 0;
+	right:0;	
+}
+
+.modal-dialog {
+	height: 90vh;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+.modal-body {
+	height: 80vh;
+	overflow-y: auto;
+	overflow-x: auto;
+	background-color: #f5f5f6;
+	border-radius: 5px!important;
+}
+
+.modal-dialog .nav-tabs {
+	border-bottom: 1px solid transparent;
+	margin-bottom: 8px;
+}
+
+.modal-body .nav.nav-tabs > li.active > a,
+.modal-body .nav.nav-tabs > li > a,
+.modal-body .nav.nav-tabs > li > a:hover {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+/* back buttons */
+
+#back_button_subst, #back_button_cat,
+#back_button_subst:focus, #back_button_cat:focus
+#back_button_subst:active, #back_button_cat:active,
+#back_button_pathway, #back_button_pathway:focus, #back_button_pathway:active  {
+	background: #1D3A65;
+	color: #fff;
+	border: none;
+	outline: none;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;	
+}
+
+#backpage,
+#backtoinfo {
+	margin-left: 50px;
+}
+
+
+/*--------------------------------------------------*/
+/*        NOTIFICATIONS AND NO DATA MESSAGES        */
+/*--------------------------------------------------*/
+
+/* notifications */
+
+.shiny-notification {
+	     background: #fff;
+	     color: #1D3A65;
+	     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	     -webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	     border: none;
+             opacity: 1;
+	     padding: 15px;	
+             }
+
+/* placeholder for empty tables */
+
+.no-data-div, .no-data-div-loading { /*left side overview*/
+	margin-top: 20px; 
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.no-data-div /*left sidebar*/, .no-data-table /*other tabs*/, 
+.no-data-div-loading,
+#pathway-overview .shiny-output-error-validation /*pathway overview*/,
+.filter-table .shiny-output-error-validation /* tables in pathway filter*/,
+#substance_searchResult + div.shiny-output-error-validation /*search results*/,
+.information-table > .shiny-output-error-validation /*other tabs tables*/,
+#gene-table-div .shiny-output-error-validation /* associated phenotypes */ {
+	display: flex;
+	height: 80px!important;
+	width: 200px;
+	background-color: #fff;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+	font-size: 12px;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 	
+	-moz-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 	
+}
+
+#sidebar-overview .shiny-output-error-validation /* sidebar overview */ {
+	font-size: 12px;
+}
+
+.invivo-count-div > .shiny-output-error-validation,
+.clp-div > .shiny-output-error-validation /* sidebar overview */ {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 40px;
+	margin-right: auto;
+	}
+
+.no-data-div-loading {
+	box-shadow: none;
+	background-color: rgba(29, 58, 101, 0.03);	
+}
+
+.details-overview-container,
+#invitro_details.shiny-output-error-validation /* pathway in vitro details */,
+#phenotypes_details.shiny-output-error-validation /* pathway phenotypes details */,
+#ranking_indiv_pathways.shiny-output-error-validation {
+	min-height: 100px;
+	background-color: #fff;
+}
+
+#invitro_details.shiny-output-error-validation /* pathway in vitro details */,
+#phenotypes_details.shiny-output-error-validation /* pathway phenotypes details */,
+.details-overview-container .shiny-output-error-validation /*pathway details*/,
+#ranking_indiv_pathways.shiny-output-error-validation {
+	font-size: 14px;
+	text-align: center;
+}
+
+.shiny-output-error-validation { /* pathway overview */
+	color: #1D3A65;
+}
+
+#pathwayNameSelectedOverview.shiny-output-error-validation /* details overview*/ {
+	padding-top: 18px;
+}
+
+#pathwayNameSelectedOverview.shiny-output-error-validation,
+#invitro_details.shiny-output-error-validation /* pathway in vitro details */,
+#phenotypes_details.shiny-output-error-validation /* pathway phenotypes details */,
+#ranking_indiv_pathways.shiny-output-error-validation { /*pathway details*/
+	color: rgba(0, 0, 0, 0.4);
+	font-weight: 500;
+	border-radius: 5px;
+}
+
+#invitro_details.shiny-output-error-validation /* pathway in vitro details */,
+#phenotypes_details.shiny-output-error-validation /* pathway phenotypes details */,
+#ranking_indiv_pathways.shiny-output-error-validation {
+	padding-top: 40px;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
+	-webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 	
+	-moz-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 	
+}
+
+#gene_reactomeButton.shiny-output-error-validation,
+.bar-plot-container .shiny-output-error-validation { /* validation message for pathway results page */
+	color: rgba(0, 0, 0, 0.2);
+	font-weight: 500;
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+.no-data-table /*other tabs of info page*/, 
+#substance_searchResult + div.shiny-output-error-validation /*search results*/,
+.information-table > .shiny-output-error-validation /*other tabs tables*/  { 
+	position: fixed!important;
+	top: 50%!important;
+	left: 50%!important;
+	margin-top: -50px;
+	margin-left: -125px;
+}
+
+#pathway-overview .shiny-output-error-validation, /* pathway overview table*/
+.filter-table .shiny-output-error-validation /* tables in pathway filter */ {
+	position: fixed !important;
+	top: 50% !important;
+	left: 50% !important;
+	margin-right: auto;
+	margin-top: -50px;
+	margin-left: -125px;	
+}
+
+#gene-table-div .shiny-output-error-validation /* associated phenotypes */ {
+	position: fixed !important;
+	top: 60% !important;
+	left: 50% !important;
+	margin-right: auto;
+	margin-top: -50px;
+	margin-left: -125px;	
+}
+
+
+.overview-line {
+	margin-bottom:20px; 
+	margin-top: 15px; 
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+															
+}
+
+td.dataTables_empty {
+	border: none!important;
+	color: #1D3A65;
+}
+
+/*** info icon ***/
+
+.info-tip:before {
+	content: '';
+	background: url("../images/i.svg") no-repeat;
+	background-size: 21px 12px;
+	width: 21px;
+	height: 12px;
+	display: inline-block;
+}	
+
+
+/*--------------------------------------------------*/
+/*                  LOADING PANELS                  */
+/*--------------------------------------------------*/
+
+/*** loading for overview tab ***/
+
+.loading-wrapper-pathway {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	position: fixed;
+	top: 20%;
+	width: 40%;
+	margin-top: 5px;
+}
+
+.load-div-msg-pathway {
+	margin-top: 20px;
+}
+
+.load-div-1-pathway {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 4px;
+	border-radius: 5px;
+	margin-bottom: 26px;
+	margin-top: 20%;
+} 
+
+.load-div-2-pathway {
+	background-color: rgba(29, 58, 101, 0.03);
+	width: 100%;
+	height: 22px;
+	border-radius: 5px;	
+	margin-bottom: 8px;
+}
+
+.load-div-3-pathway {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 30px;
+	width: 100%;
+	border-radius: 5px;
+	margin-bottom: 8px;
+} 
+
+.load-div-4-pathway {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 22px;
+	width: 100%;
+	border-radius: 5px;
+	margin-bottom: 26px;
+} 
+
+.load-div-5-pathway {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 4px;
+	width: 100%;
+	border-radius: 5px;
+} 
+
+/*** loading for similar substances tab ***/
+
+.loading-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	gap: 30px;
+	position: fixed;
+	top: 15%;
+	width: 90%;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+
+.load-div-1 {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 150px;
+	border-radius: 5px;
+} 
+
+.load-div-2 {
+	background-color: rgba(29, 58, 101, 0.03);
+
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;	
+}
+
+.load-div-3 {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 40px;
+	width: 100%;
+	border-radius: 5px;
+} 
+
+.load-div-4 {
+	background-color: rgba(29, 58, 101, 0.03);
+	height: 40px;
+	width: 100%;
+	border-radius: 5px;
+} 
+
+#loadingContainer,
+#loadingContainerCat {
+	transition: opacity 0.1s;
+}
+
+#substanceContainer,
+#categoryContainer {
+	transition: opacity 0.1s;
+	
+}
+
+#calculate_pathway {
+	visibility: hidden;
+	height: 0;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+/* Show a message when session is disconnected */
+div#shiny-disconnected-overlay {
+  opacity: 0.75;
+}
+div#shiny-disconnected-overlay:before {
+  content: "An error occured or your session has been disconnected. Please refresh your browser window.";
+  text-align: center;
+  font-size: 25pt;
+  background-color: white;
+  padding: 5%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

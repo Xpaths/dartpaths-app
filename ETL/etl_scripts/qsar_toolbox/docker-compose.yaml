@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  qsartoolbox:
+    image: bitnami/postgresql:13.5.0
+    volumes:
+    - "$QSARTOOLBOX_PGSQL_DIR:/bitnami/postgresql"
+    - "$BACKUPS_DIR:/tmp/data_raw"
+    - "$QSARTOOLBOX_INIT_SH:/docker-entrypoint-initdb.d/restore-db.sh"
+    ports:
+    - 5432:5432
+    environment:
+    - POSTGRESQL_DATABASE="${QSARTOOLBOX_DB_NAME}"
+    - QSARTOOLBOX_DB_NAME=${QSARTOOLBOX_DB_NAME}
+    - POSTGRESQL_PASSWORD=password123
+    - QSARTOOLBOX_DUMP_BASENAME=${QSARTOOLBOX_DUMP_BASENAME}
