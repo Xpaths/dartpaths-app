@@ -20,7 +20,8 @@ substance_information_page <- div(
                             paste("Above the central table is a drop-down menu to select the type of included evidence",
                                 "(default: 'Based on all evidence') and a button 'Filter and recalculate'",
                                 "which allows to select the the individual data records used for the ranked pathways."),
-                            "The values in the central table show a Jaccard index if the option 'Based on in vitro evidence' is selected. In all other cases, an FDR-adjusted p-value is shown."
+                            paste("The values in the central table show a Jaccard index (sorted in decreasing order) if the option 'Based on in vitro evidence' is selected or if 'Based on all evidence' is selected and there is only in vitro data for the selected substance.",
+                                "In all other cases, an FDR-adjusted p-value (sorted in increasing order) is shown.")
                         ))),
                 
                 fluidRow(

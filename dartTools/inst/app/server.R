@@ -102,11 +102,7 @@ observeEvent(input$substance_searchResult_rows_selected, {
 
 
 
-observeEvent(input$substance_searchResult_rows_selected, { 
-			
-			results$inVitroSelection <- NULL
-			results$mammalianPhenoSelection <- NULL
-			results$nonMammalianPhenoSelection <- NULL
+observeEvent(input$substance_searchResult_rows_selected, {
 			
 			info <- input$substance_searchResult_rows_selected
 			#   if (is.null(info$value) || info$col != 0) return()
@@ -122,10 +118,6 @@ observeEvent(input$substance_searchResult_rows_selected, {
 ## Category results page: change page when the row is clicked 
 
 observeEvent(input$category_searchResult_rows_selected, { 
-			
-			results$inVitroSelection <- NULL
-			results$mammalianPhenoSelection <- NULL
-			results$nonMammalianPhenoSelection <- NULL
 			
 			info <- input$category_searchResult_rows_selected
 			# if (is.null(info$value) || info$col != 0) return()
@@ -360,86 +352,31 @@ observeEvent(input$category_searchResult_rows_selected,
                     )
                 ),
                 tabsetPanel(tabPanel(title = "Mammalian phenotypes",
-                        tags$div(class = "filter-table", dataTableOutput("mammalianPhenotypes"))),
+                        tags$div(class = "filter-table", dataTableOutput("mammalianPhenotypes")),
+						tags$div(class = "table-btn-wrapper", 
+								tags$div(class = "filter-btn", actionButton("DeselectAllMam", label = "Deselect All")),
+								tags$div(class = "filter-btn", actionButton("SelectAllMam", label = "Select All"))),
+						tags$div(style = "margin-bottom: 40px;")),
                     tabPanel(title = "Non-mammalian phenotypes",
-                        tags$div(class = "filter-table", dataTableOutput("nonMammalianPhenotypes"))),
+                        tags$div(class = "filter-table", dataTableOutput("nonMammalianPhenotypes")),
+						tags$div(class = "table-btn-wrapper", 
+								tags$div(class = "filter-btn", actionButton("DeselectAllNonMam", label = "Deselect All")),
+								tags$div(class = "filter-btn", actionButton("SelectAllNonMam", label = "Select All"))),
+						tags$div(style = "margin-bottom: 40px;")),
                     tabPanel(title = "In vitro assays",
-                        tags$div(class = "filter-table", dataTableOutput("allInVitro")))
+                        tags$div(class = "filter-table", dataTableOutput("allInVitro")),
+						tags$div(class = "table-btn-wrapper", 
+								tags$div(class = "filter-btn", actionButton("DeselectAllInVitro", label = "Deselect All")),
+								tags$div(class = "filter-btn", actionButton("SelectAllInVitro", label = "Select All"))),
+						tags$div(style = "margin-bottom: 40px;"))
                 
                 )))
       })
   
  
-  ## reset selection of rows in pathway filter when a new substance/category is selected
-  
-  
-  rvinvitro <- reactiveVal(NULL)
-  rvmam <- reactiveVal(NULL)
-  rvnonmam <- reactiveVal(NULL)
-  
-  observeEvent(input$substance_searchResult_rows_selected, { 
-			  
-			  selectedRowIndexInVitro <- NULL
-			  selectedRowIndexMamPhenotypes <- NULL	
-			  selectedRowIndexNonMamPhenotypes <- NULL
-			  
-			  rvinvitro(selectedRowIndexInVitro)
-			  rvmam(selectedRowIndexMamPhenotypes)
-			  rvnonmam(selectedRowIndexNonMamPhenotypes)
-		  })
-  
-  
-  observeEvent(input$category_searchResult_rows_selected, { 
-			  
-			  selectedRowIndexInVitro <- NULL
-			  selectedRowIndexMamPhenotypes <- NULL	
-			  selectedRowIndexNonMamPhenotypes <- NULL
-			  
-			  rvinvitro(selectedRowIndexInVitro)
-			  rvmam(selectedRowIndexMamPhenotypes)
-			  rvnonmam(selectedRowIndexNonMamPhenotypes)
-		  })
-  
-
   ## recalculate pathway ranking when recalculate button is clicked 
   
-  observeEvent(input$recalculatePathwaysButton, {
-        
-        selectedRowIndexInVitro <- input$allInVitro_rows_selected
-		
-       selectedRowIndexMamPhenotypes <- input$mammalianPhenotypes_rows_selected	
-		
-        selectedRowIndexNonMamPhenotypes <- input$nonMammalianPhenotypes_rows_selected	
-        
-        # default selection: vector with TRUE value for each row
-        pathwayRankingObject <- results$substance_pathwayranking_object()
-        inVitroSelection <- pathwayRankingObject$defaultSelection$inVitro
-        mamPhenoSelection <- pathwayRankingObject$defaultSelection$mammalianPhenotypes
-        nonMamPhenoSelection <- pathwayRankingObject$defaultSelection$nonMammalianPhenotypes
-
-        if (!is.null(selectedRowIndexInVitro)){
-          inVitroSelection[-selectedRowIndexInVitro] <- FALSE
-          results$inVitroSelection <- inVitroSelection
-        }
-        if (!is.null(selectedRowIndexMamPhenotypes)){
-          mamPhenoSelection[-selectedRowIndexMamPhenotypes] <- FALSE
-          results$mammalianPhenoSelection <- mamPhenoSelection
-        }
-        if (!is.null(selectedRowIndexNonMamPhenotypes)){
-          nonMamPhenoSelection[-selectedRowIndexNonMamPhenotypes] <- FALSE
-          results$nonMammalianPhenoSelection <- nonMamPhenoSelection
-        }
-        
-        # # keep track of the substanceid that was used for latest selection
-        # results$substanceidCurrentSelection <- results$substance_pathwayranking_object()$substanceid
-
-		rvinvitro(selectedRowIndexInVitro)
-		rvmam(selectedRowIndexMamPhenotypes)
-		rvnonmam(selectedRowIndexNonMamPhenotypes)
-			
-        removeModal()
-        
-      })
+  observeEvent(input$recalculatePathwaysButton, removeModal())
 
 
 

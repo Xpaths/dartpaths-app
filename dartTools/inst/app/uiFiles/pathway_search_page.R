@@ -25,7 +25,7 @@ pathway_search_page <- div(
                     tags$span(class = "tooltiptext",
                         paste("The 'Orthology relation' table shows orthologs for human genes in the selected pathway.",
                             "If orthologs are found, the color and text indicates if the human gene has one ortholog (1:1),",
-                            "multiple orthologs (1:N) or if multiple human genes are orthologs of mulitple genes in the other species (N:N).",
+                            "multiple orthologs (1:N) or if multiple human genes are orthologs of multiple genes in the other species (N:N).",
                             "A zero (0) indicates that no orthologs were found.",
                             "A red outline indicates a relation that was discovered using an extended orthology search (dartpaths-phylogeny pipeline).",
                             "All other orthology relations were obtained from Ensembl Compara."),
@@ -47,7 +47,7 @@ pathway_search_page <- div(
                 tags$div(class = "info-tip-wrapper", 
                     tags$div(class = "info-tip", 
                         tags$span(class = "tooltiptext", "The 'Associated phenotypes' table lists phenotypes that are associated with modulation of the selected pathway.",
-                            "A hypergeometric test was used to assess the significance of phenotypes co-occuring with modulation of genes in the pathway.",
+                            "A hypergeometric test was used to assess the significance of phenotypes co-occurring with modulation of genes in the pathway.",
                             "A false discovery rate (FDR) correction was applied to the resulting p-value. Only adjusted p-values below 0.01 (FDR of 1%) were considered significant."
                 ))),
 createContactButton(HTML('<div class = "overview-helptext"> Go to Vivaltes for wet-lab testing to validate phenotype predictions</div>')),

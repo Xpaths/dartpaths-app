@@ -307,13 +307,17 @@ PathwayRanking <- R6Class("PathwayRanking",
             mammalianPhenoSelection = self$defaultSelection$mammalianPhenotypes,
             nonMammalianPhenoSelection = self$defaultSelection$nonMammalianPhenotypes
         ){
-          
+        
+          cat(sprintf("Calculating pathway ranking with %d in vitro, %d mammalian and %d non-mammalian records...\n",
+              sum(inVitroSelection), sum(mammalianPhenoSelection), sum(nonMammalianPhenoSelection)))
           hash <- digest(list(inVitroSelection, mammalianPhenoSelection, nonMammalianPhenoSelection))
           if (! hash %in% names(self$cache$pathwayRanking)){
             startTime <- Sys.time()
             self$cache$pathwayRanking[[hash]] <- self$.rankPathways(inVitroSelection, mammalianPhenoSelection, nonMammalianPhenoSelection)
             endTime <- Sys.time()
             cat("Calculation of pathway ranking took", round(endTime - startTime), "s\n")
+          } else {
+            cat("Returning cached result of pathway ranking\n")
           }
           return(copy(self$cache$pathwayRanking[[hash]]))
         },

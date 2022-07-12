@@ -626,8 +626,10 @@ output$substance_summary1_invitro_names <-
 
 # B. Calculation of pathway ranking
 
+rvinvitro <- reactiveVal(NULL)
+rvmam <- reactiveVal(NULL)
+rvnonmam <- reactiveVal(NULL)
 
-# Filtered Compounds
 
 results$substance_pathwayranking_object <- reactive({
       
@@ -635,40 +637,70 @@ results$substance_pathwayranking_object <- reactive({
       if (is.null(substanceids))
         return(NULL)
       
-      # reset selection when creating pathwayRankingObject for a different substanceid 
-      results$inVitroSelection <- NULL
-      results$mammalianPhenoSelection <- NULL
-      results$nonMammalianPhenoSelection <- NULL
       pathwayRankingObject <- PathwayRanking$new(database = database,
           substanceid = substanceids,
           pathwayLevels = getOption("dartpaths_app_pathway_ranking_levels"),
           sizePathwayMin = getOption("dartpaths_app_pathway_ranking_min_genes"),
-          sizePathwayMax  = getOption("dartpaths_app_pathway_ranking_max_genes"),
+          sizePathwayMax = getOption("dartpaths_app_pathway_ranking_max_genes"),
           phenotypeRankingLowestLevel = getOption("dartpaths_app_pathway_ranking_lowest_level")
       )
+
+      return(pathwayRankingObject) 
+    })
+
+nullOrIndex <- function(selection){
+  if(is.null(selection)){
+    NULL
+  } else {
+    which(selection)
+  }
+  
+}
+
+## reset selection of rows in pathway filter when a new pathway ranking object is created
+# (after selecting a new substance/category)
+observeEvent(results$substance_pathwayranking_object(),
+    {
+      pathwayRankingObject <- results$substance_pathwayranking_object()
+      rvinvitro(nullOrIndex(pathwayRankingObject$defaultSelection$inVitro))
+      rvmam(nullOrIndex(pathwayRankingObject$defaultSelection$mammalianPhenotypes))
+      rvnonmam(nullOrIndex(pathwayRankingObject$defaultSelection$nonMammalianPhenotypes))
     })
 
 
+indicesToLogicalVector <- function(defaultVec, indices){
+  if (length(defaultVec) == 0){
+    defaultVec
+  } else {
+    sapply(seq_along(defaultVec), `%in%`, indices)
+  }
+}
+
 
 results$substance_pathways <- eventReactive(input$calculate_pathway,  {
-      
+      				
       pathwayRankingObject <- results$substance_pathwayranking_object()
       if (is.null(pathwayRankingObject))
         return(NULL)
       
-      if(nrow(pathwayRankingObject$mammalianPhenotypes) + nrow(pathwayRankingObject$nonMammalianPhenotypes) + nrow(pathwayRankingObject$allInVitro) == 0 ) return(NULL)
+      if(nrow(pathwayRankingObject$mammalianPhenotypes) + 
+          nrow(pathwayRankingObject$nonMammalianPhenotypes) + 
+          nrow(pathwayRankingObject$allInVitro) == 0 ) return(NULL)
       
-      ivs <- results$inVitroSelection 
-      if(is.null(ivs)) ivs <- pathwayRankingObject$defaultSelection$inVitro
-      mps <- results$mammalianPhenoSelection
-      if(is.null(mps)) mps <- pathwayRankingObject$defaultSelection$mammalianPhenotypes
-      nps <- results$nonMammalianPhenoSelection
-      if(is.null(nps)) nps <- pathwayRankingObject$defaultSelection$nonMammalianPhenotypes
+      inVitroSelection <- indicesToLogicalVector(
+          pathwayRankingObject$defaultSelection$inVitro,
+          rvinvitro())
+      mammalianPhenoSelection <- indicesToLogicalVector(
+          pathwayRankingObject$defaultSelection$mammalianPhenotypes,
+          rvmam())
+      nonMammalianPhenoSelection <- indicesToLogicalVector(
+          pathwayRankingObject$defaultSelection$nonMammalianPhenotypes,
+          rvnonmam())
       
       pathways <- pathwayRankingObject$rankPathways(
-          inVitroSelection = ivs,
-          mammalianPhenoSelection = mps,
-          nonMammalianPhenoSelection = nps)
+          inVitroSelection = inVitroSelection,
+          mammalianPhenoSelection = mammalianPhenoSelection,
+          nonMammalianPhenoSelection = nonMammalianPhenoSelection)
       
     })
 
@@ -686,47 +718,66 @@ substancePathways <- reactive({
       substancePathways
     })
 
-substancePathwaysSorted <- reactive({
-      
-      
-#			validate(
-#					need(!nrow(substancePathways()) == 0, 'No data available'))	
-      
+substancePathwaysWithCircle  <- reactive({
+
       if (is.null(substancePathways()))
         return()
       
+      substancePws <- substancePathways()
       
-      
-      substancePathwaysSelection <- switch(input$selectCol,
-          "scoreAll" = substancePathways()[(
-                    !is.na(min_p_adjusted_all) & min_p_adjusted_all <= pvalueThresholdSummary)],
-          "scoreMammalian" = substancePathways()[
-              !is.na(min_p_adjusted_mammalian) & min_p_adjusted_mammalian <= pvalueThresholdSummary, ],
-          "scoreNAM" = substancePathways()[
-              !is.na(min_p_adjusted_NAM) & min_p_adjusted_NAM <= pvalueThresholdSummary, ],
-          "scoreInVitro" = substancePathways()[scoreInVitro>0, ],
-          "scoreAllWithoutZero" = substancePathways()[
-              !is.na(min_p_adjusted_mammalian) & min_p_adjusted_mammalian <= pvalueThresholdSummary &
-                  !is.na(min_p_adjusted_NAM) & min_p_adjusted_NAM <= pvalueThresholdSummary & scoreInVitro>0, ]
-      )
-      
-      substancePathwaysSelection <- switch(input$selectCol,	
-          "scoreAll" = substancePathwaysSelection[order(min_p_adjusted_all, -scoreInVitro, decreasing = FALSE)],
-          "scoreMammalian" = substancePathwaysSelection[order(min_p_adjusted_mammalian, decreasing = FALSE)],
-          "scoreNAM" = substancePathwaysSelection[order(min_p_adjusted_NAM, decreasing = FALSE)],
-          "scoreInVitro" = substancePathwaysSelection[order(scoreInVitro, decreasing = TRUE)],	
-          "scoreAllWithoutZero" = substancePathwaysSelection[order(min_p_adjusted_all, -scoreInVitro,  decreasing = FALSE)]
-      )
-      
-      substancePathwaysSelection[, circleMammalian := paste0('<div class="',
+      substancePws[, circleMammalian := paste0('<div class="',
               ifelse(min_p_adjusted_mammalian <= pvalueThresholdSummary, "mammalian-details", "no-details mammalian-no-details"),
               '"></div>')]
-      substancePathwaysSelection[, circleNAM := paste0('<div class="',
+      substancePws[, circleNAM := paste0('<div class="',
               ifelse(min_p_adjusted_NAM <= pvalueThresholdSummary,  "nam-details", "no-details nam-no-details"),
               '"></div>')]
-      substancePathwaysSelection[, circleInVitro := paste0('<div class="',
+      substancePws[, circleInVitro := paste0('<div class="',
               ifelse(scoreInVitro>0,  "invitro-details", "no-details invitro-no-details"),
               '"></div>')]
+      
+    })
+
+substancePathwaysSorted <- reactive({
+      
+      if (is.null(substancePathwaysWithCircle()))
+        return()
+      
+      substancePws <- copy(substancePathwaysWithCircle())
+      
+      substancePathwaysSelection <- switch(input$selectCol,
+          "scoreAll" = substancePws[(
+                    !is.na(min_p_adjusted_all) & min_p_adjusted_all <= pvalueThresholdSummary)][
+              order(min_p_adjusted_all, -scoreInVitro, decreasing = FALSE)][
+              , summaryScore := min_p_adjusted_all],
+          "scoreMammalian" = substancePws[
+              !is.na(min_p_adjusted_mammalian) & min_p_adjusted_mammalian <= pvalueThresholdSummary, ][
+              order(min_p_adjusted_mammalian, decreasing = FALSE)][
+              , summaryScore := min_p_adjusted_mammalian],
+          "scoreNAM" = substancePws[
+              !is.na(min_p_adjusted_NAM) & min_p_adjusted_NAM <= pvalueThresholdSummary, ][
+              order(min_p_adjusted_NAM, decreasing = FALSE)][
+              , summaryScore := min_p_adjusted_NAM],
+          "scoreInVitro" = substancePws[scoreInVitro>0, ][
+              order(scoreInVitro, decreasing = TRUE)][
+              , summaryScore := scoreInVitro],
+          "scoreAllWithoutZero" = substancePws[
+              !is.na(min_p_adjusted_mammalian) & min_p_adjusted_mammalian <= pvalueThresholdSummary &
+                  !is.na(min_p_adjusted_NAM) & min_p_adjusted_NAM <= pvalueThresholdSummary & scoreInVitro>0, ][
+              order(min_p_adjusted_all, -scoreInVitro,  decreasing = FALSE)][
+              , summaryScore := min_p_adjusted_all]
+      )
+
+      # add attributed used for displaying name for the score
+      setattr(substancePathwaysSelection, "summaryScoreType",
+          if (input$selectCol == "scoreInVitro") "jaccard" else "adjustedP")
+      
+      # If only in vitro data is available, scoreAll should give a ranking based on in vitro scores
+      # (identical to scoreInVitro)
+      if (input$selectCol == "scoreAll" && nrow(substancePathwaysSelection) == 0){
+          substancePathwaysSelection <- substancePws[scoreInVitro>0, ][order(scoreInVitro, decreasing = TRUE)]
+          substancePathwaysSelection[, summaryScore := scoreInVitro]
+          setattr(substancePathwaysSelection, "summaryScoreType", "jaccard")
+      }
       
       return(substancePathwaysSelection)
       
@@ -740,53 +791,33 @@ output$substance_pathways_summary <- renderDataTable({
       validate(
           need(!is.null(substancePathwaysSelection), 'No data available'))
       
-      
-      #   substancePathwaysSelection[,pathway:= createLink(paste0("https://reactome.org/PathwayBrowser/#/",event_name), event_name)]
-      columnDefs1 <- list(
+      columnDefs <- list(
           list(visible = TRUE, targets = c(0, 4, 5, 6, 7)),
           list(visible = FALSE, targets = c(1, 2, 3))
       )
       
-      columnDefs2 <- list(
-          list(visible = TRUE, targets = c(1, 4, 5, 6, 7)),
-          list(visible = FALSE, targets = c(0, 2, 3))
-      )
-      
-      columnDefs3 <- list(
-          list(visible = TRUE, targets = c(2, 4, 5, 6, 7)),
-          list(visible = FALSE, targets = c(0, 1, 3))
-      )
-      
-      columnDefs4 <- list(
-          list(visible = TRUE, targets = c(3, 4, 5, 6, 7)),
-          list(visible = FALSE, targets = c(0, 1, 2))
-      )
-      
-      columnDefsSelected <- switch(input$selectCol,
-          "scoreAll" = {columnDefs1},
-          "scoreMammalian" = {columnDefs2},
-          "scoreNAM" = {columnDefs3},
-          "scoreInVitro" = {columnDefs4},
-          "scoreAllWithoutZero" = {columnDefs1}
-      )
-      
       roundJaccard <- function(vec) round(vec, nDigitsJaccard)
       roundPValues <- function(vec) round(vec, nDigitsPValues)
+      roundSummary <- switch(
+          attributes(substancePathwaysSelection)$summaryScoreType,
+          "jaccard" = roundJaccard,
+          "adjustedP" = roundPValues
+      )
+      
       
       uiTable(substancePathwaysSelection,
           columnMap = c(
-              min_p_adjusted_all = "",
+              summaryScore = "",
               min_p_adjusted_mammalian = "",
               min_p_adjusted_NAM = "",
               scoreInVitro = "",
               circleMammalian = "",
               circleNAM = "",
               circleInVitro = "",
-              #pathway = ""
               event_name = ""
           ),
           columnConversions = c(
-              min_p_adjusted_all = roundPValues,
+              summaryScore = roundSummary,
               min_p_adjusted_mammalian = roundPValues,
               min_p_adjusted_NAM = roundPValues,
               scoreInVitro = roundJaccard
@@ -798,7 +829,7 @@ output$substance_pathways_summary <- renderDataTable({
               #order = orderSelection,
               pageLength = 20,
               searching = FALSE,
-              columnDefs = columnDefsSelected),
+              columnDefs = columnDefs),
           callback = JS("table.on( 'click', 'tr', function() {
                   tr = $(this)
                   if (tr.hasClass('selected')) {
@@ -918,10 +949,14 @@ output$summaryScoreOverview <-
           if(length(selectedRowIndex)){
             info <- substancePathwaysSorted()[selectedRowIndex, ]
             
-            scoreAll <- round(info$min_p_adjusted_all, digits=nDigitsPValues)
+            scoreAll <- round(info$summaryScore, digits=nDigitsPValues)
+            summaryScoreName <- switch(attributes(info)$summaryScoreType,
+              "jaccard" = "Jaccard index",
+              "adjustedP" = "Adjusted p-value"
+            )
             
             tagList(
-                tags$h2(class = "info-right-sidebar-title", "Summary score"),
+                tags$h2(class = "info-right-sidebar-title", summaryScoreName),
                 tags$div(scoreAll
                 )	
             )	
@@ -1025,6 +1060,10 @@ generateMamPhenotypesOverview <- function() {
 }
 
 output$MammalianPhenotypesOverview <- generateMamPhenotypesOverview()
+
+
+
+
 
 # C.7. Non-mammalian phenotypes pointing to this pathway
 
@@ -1305,7 +1344,7 @@ generateAllInVitro <- function(){
   
   renderDataTable({
         
-        tableToRender <- results$substance_pathwayranking_object()$allInVitro
+        tableToRender <- copy(results$substance_pathwayranking_object()$allInVitro)
         #   if (nrow(tableToRender)==0) return(NULL)
         
         validate(
@@ -1322,24 +1361,25 @@ generateAllInVitro <- function(){
         } else {
           
           # no row selected by default	
-          #	callbackText <- JS("table.rows([]).select();")
+          callbackText <- JS("table.rows([]).select();")
           # all rows selected by default		
-          callbackText <- JS("table.rows().select();")
+          #callbackText <- JS("table.rows().select();")
         }	
         
         uiTable(tableToRender, interactive = TRUE, scrollX = FALSE, 
-            extensions = c('Select', 'Buttons'),
+          #  extensions = c('Select', 'Buttons'),
             filter = "none", 
             columnSelection = c("checkbox", "assay", "ac50", "species", "gene"),
             columnConversions = c(),
             columnMap = c("checkbox" = "", "assay" = "", "hitcall" = "", "ac50" = "", "species" = "", "biologicalprocess" = "", "gene" = ""),
-            selection = 'none',	
+            #selection = 'none',
+			selection = list(mode = 'multiple', selected = rvinvitro(), target = "row"),			
             #pre-selection
             callback = callbackText,
             options = list(	
-                select = list(style = 'multiple', items = 'row'),
+                #select = list(style = 'multiple', items = 'row'),
                 dom = 'Bt',
-                buttons = c('selectAll', 'selectNone'),
+              #  buttons = c('selectAll', 'selectNone'),
                 ordering = FALSE,
                 paging = FALSE,
                 pageLength = all,
@@ -1358,7 +1398,32 @@ generateAllInVitro <- function(){
 }
 
 
+
+asChar <- function(x){
+  if(is.null(x)){
+    "NULL"
+  } else {
+    as.character(x)
+  }
+  
+}
+
+observeEvent(input$allInVitro_rows_selected,
+    rvinvitro(input$allInVitro_rows_selected),
+    ignoreNULL = FALSE)
+
+observeEvent(input$mammalianPhenotypes_rows_selected,
+    rvmam(input$mammalianPhenotypes_rows_selected),
+    ignoreNULL = FALSE)
+
+observeEvent(input$nonMammalianPhenotypes_rows_selected,
+    rvnonmam(input$nonMammalianPhenotypes_rows_selected),
+    ignoreNULL = FALSE)
+
 output$allInVitro <- generateAllInVitro()
+
+
+outputOptions(output, "allInVitro", suspendWhenHidden = FALSE)
 
 ## D.2. Mammalian tab in Modal
 
@@ -1440,21 +1505,22 @@ generatePhenotypes <- function(){
                       td.html('Hide full text');
                       }
                       });
-                      table.rows().select();"
+                      table.rows([]).select();"
               )
               
             }
         
         uiTable(tableToRender, interactive = TRUE, scrollX = FALSE, 
-            extensions = c('Select', 'Buttons'),	
+          #  extensions = c('Select', 'Buttons'),	
             filter = "none", 
             columnSelection = c("checkbox", "species", "phenotypename", "details", "Read full text"),
             columnMap = c("checkbox" = "", "species" = "", "phenotypename" = "", "details" = "", "Read full text" = ""),
-            selection = "none",
+          #  selection = "none",
+			selection = list(mode = 'multiple', selected = rvmam(), target = "row"),
             options = list(	
-                select = list(style = 'multiple', items = 'row'),		
+              #  select = list(style = 'multiple', items = 'row'),		
                 dom = 'Bt',
-                buttons = c('selectAll', 'selectNone'),
+               # buttons = c('selectAll', 'selectNone'),
                 ordering = FALSE,
                 paging = FALSE,
                 pageLength = all,
@@ -1490,8 +1556,65 @@ generatePhenotypes <- function(){
 
 output$mammalianPhenotypes <- generatePhenotypes()
 
+outputOptions(output, "mammalianPhenotypes", suspendWhenHidden = FALSE)
+
+
+# dataTableProxy to select/ deselect all rows in modal tables
+
+tableProxyMam <- dataTableProxy('mammalianPhenotypes')
+
+observeEvent(input$SelectAllMam, {
+			
+			selected <- 1:nrow(results$substance_pathwayranking_object()$mammalianPhenotypes)
+			
+			selectRows(proxy = tableProxyMam,
+					selected = selected)
+		})
+
+
+observeEvent(input$DeselectAllMam, {
+			
+			selectRows(proxy = tableProxyMam, list())
+		})
+
+
+tableProxyNonMam <- dataTableProxy('nonMammalianPhenotypes')
+
+observeEvent(input$SelectAllNonMam, {
+			
+			selected <- 1:nrow(results$substance_pathwayranking_object()$nonMammalianPhenotypes)
+			
+			selectRows(proxy = tableProxyNonMam,
+					selected = selected)
+		})
+
+
+observeEvent(input$DeselectAllNonMam, {
+			
+			selectRows(proxy = tableProxyNonMam, list())
+		})
+
+
+tableProxyInVitro <- dataTableProxy('allInVitro')
+
+observeEvent(input$SelectAllInVitro, {
+			
+			selected <- 1:nrow(results$substance_pathwayranking_object()$allInVitro)
+			
+			selectRows(proxy = tableProxyInVitro,
+					selected = selected)
+		})
+
+
+observeEvent(input$DeselectAllInVitro, {
+			
+			selectRows(proxy = tableProxyInVitro, list())
+		})
+
+
 
 ## D.3. Non-Mammalian tab in Modal
+
 
 
 generateNonMamPhenotypes <- function(){
@@ -1570,21 +1693,22 @@ generateNonMamPhenotypes <- function(){
                       td.html('Hide full text');
                       }
                       });
-                      table.rows().select();"
+                      table.rows([]).select();"
               )
               
             }
         
         uiTable(tableToRender, interactive = TRUE, scrollX = FALSE, 
-            extensions = c('Select', 'Buttons'),	
+         #   extensions = c('Select', 'Buttons'),	
             filter = "none", 
             columnSelection = c("checkbox", "species", "phenotypename", "details", "Read full text"),
             columnMap = c("checkbox" = "", "species" = "", "phenotypename" = "", "details" = "", "Read full text" = ""),
-            selection = "none",
+            #selection = "none",
+		selection = list(mode = 'multiple', selected = rvnonmam(), target = "row"),
             options = list(	
-                select = list(style = 'multiple', items = 'row'),		
+                #select = list(style = 'multiple', items = 'row'),		
                 dom = 'Bt',
-                buttons = c('selectAll', 'selectNone'),
+             #   buttons = c('selectAll', 'selectNone'),
                 ordering = FALSE,
                 paging = FALSE,
                 pageLength = all,
@@ -1622,6 +1746,7 @@ generateNonMamPhenotypes <- function(){
 output$nonMammalianPhenotypes <- generateNonMamPhenotypes()
 
 
+outputOptions(output, "nonMammalianPhenotypes", suspendWhenHidden = FALSE)
 
 
 ## I. Pathway Ranking tab

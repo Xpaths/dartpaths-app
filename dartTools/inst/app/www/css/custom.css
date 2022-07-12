@@ -1642,6 +1642,32 @@ div.bar-plot-container > div#gene_barplot_overview > div {
   outline: none!important; /* Overrides chrome outline */
 }
 
+/*** select/deselect button in pathway filter ***/
+
+.table-btn-wrapper {
+	position: fixed;
+	z-index: 5000;
+	display: flex;
+	padding-top: 20px;
+	bottom: 14px;
+}
+
+
+.filter-btn .btn-default {
+	margin-right: 8px;
+	background-color: rgba(72, 141, 244, 0.8);
+	color: #fff;
+	
+}
+
+.filter-btn .btn-default:hover,
+.filter-btn .btn-default:focus,
+.filter-btn .btn-default:active {
+	  background-color: #fff;
+ 	 color: #1D3A65;
+}
+
+
 /* Add button */
 
 .custom-modal-footer .btn-default:hover,
@@ -1651,7 +1677,8 @@ div.bar-plot-container > div#gene_barplot_overview > div {
   color: #1D3A65;
 }
 
-.custom-modal-footer .btn-default {
+
+.custom-modal-footer .btn-default, .filter-btn .btn-default  {
   background-color: rgba(255, 255, 255, 0.2);
   -moz-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2);
   -webkit-box-shadow: inset 100px 100px 100px rgba(255, 255, 255, 0.2);

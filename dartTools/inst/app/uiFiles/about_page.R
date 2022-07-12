@@ -15,7 +15,7 @@ about_page <- div(
                     tags$p(style = "text-align:center", tags$img(src = "images/dartpaths_overview.svg", id = "dart-intro-img", width="700")),
                     
                     # Compounds
-                    tags$p("This application collects and combines online information from different data sources (ECHA, eChemPortal and Pubmed) to allow DART hazard prediction of chemical substances.",
+                    tags$p("This application collects and combines online information from different data sources to allow DART hazard prediction of chemical substances.",
                         "The app allows to search substances or substance (UVCB) categories and get an overview of available data such as activity in ", tags$i("in vitro"), " assays, observed phenotypes and effect levels from regulatory studies.",
                         "This data is used to rank the biological pathways that may be affected by the substance.", 
                         "The rank order reflects associations between pathways and observed phenotypes as well as observed pathway modulation in ", tags$i("in vitro"), " assays.",
@@ -78,12 +78,25 @@ about_page <- div(
                     "This tool makes use of and/or links to the following databases",
                     
                     tags$ul(
+                        
+                        tags$li(tags$a("Dictybase", target="_blank",
+                                href = "http://dictybase.org/")),
                         tags$li(tags$a("European Chemicals Agency", target="_blank",
                                 href = "http://echa.europa.eu/disclaimer_en.asp#registration")),
-                        tags$li(tags$a("ENSEMBL compara Metazoa", target="_blank",
-                                href = "http://metazoa.ensembl.org/info/website/ftp/index.html")),
+                        tags$li(tags$a("Ensembl", target="_blank",
+                                href = "http://www.ensembl.org")),
+                        tags$li(tags$a("EPA CompTox", target="_blank",
+                                href = "https://comptox.epa.gov")),
+                        tags$li(tags$a("FlyBase", target="_blank",
+                                href = "https://flybase.org")),
                         tags$li(tags$a("International mouse phenotyping consortium", target="_blank",
                                 href = "http://www.mousephenotype.org/")),
+                        tags$li(tags$a("MGI", target="_blank",
+                                href = "http://www.informatics.jax.org/")),
+                        tags$li(tags$a("OBO", target="_blank",
+                                href = "http://obofoundry.org/")),
+                        tags$li(tags$a("OECD QSAR Toolbox", target="_blank",
+                                href = "https://qsartoolbox.org/")),                        
                         tags$li(tags$a("Reactome", target="_blank",
                                 href = "https://reactome.org/")),
                         tags$li(tags$a("WormBase", target="_blank",
