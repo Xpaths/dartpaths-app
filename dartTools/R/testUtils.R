@@ -4,6 +4,11 @@
 ###############################################################################
 
 
+#' Utility function to generate example data for unit testing
+#' @param dataType Character string with type of vector (currently, only 'substance' is supported)
+#' @return data.table object
+#' @author Marvin Steijaert
+#' @export
 getExampleData <- function(dataType = "substance")(
         if(dataType == "substance"){
           data.table(
@@ -14,3 +19,25 @@ getExampleData <- function(dataType = "substance")(
           )
         } else NULL
         )
+
+#' Utility to check environment
+#' @return NULL
+#' @author Marvin Steijaert
+#' @export
+checkEnvironment <- function(){
+  exitCode <- system2(normalizePath(getOption("dartpaths_python")), "--version", stdout = NULL)
+  if(exitCode !=0){
+    stop("No python executable can be found at location specified by getOption('dartpaths_python'))")
+  }
+  message("Python is available: ",
+      system2(normalizePath(getOption("dartpaths_python")),"--version", stdout = TRUE))
+  
+  exitCode <- system2(normalizePath(getOption("dartpaths_python")),
+      "-c 'import rdkit; print(rdkit.__version__)'", stdout = NULL)
+  if(exitCode !=0){
+    stop("RDKit is not available")
+  }
+  message("RDKit is available: ", 
+      system2(normalizePath(getOption("dartpaths_python")),
+          "-c 'import rdkit; print(rdkit.__version__)'", stdout = TRUE))
+}

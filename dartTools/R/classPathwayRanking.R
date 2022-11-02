@@ -44,6 +44,8 @@ PathwayRanking <- R6Class("PathwayRanking",
         phenotypeRankingLowestLevel = FALSE,
         #' @field simulationResults Simulation results used for p-value estimation
         simulationResults = NULL,
+        #' @field filterICw Filter to use for IC, should be, NULL (no filtering) "mean" or number 0-1.
+        filterICw = NULL,
         #' @description Create a new PathwayRanking object
         #' @param database DartDB object
         #' @param substanceid selected substanceid in database
@@ -52,9 +54,10 @@ PathwayRanking <- R6Class("PathwayRanking",
         #' @param sizePathwayMin minimum number of genes in selected HUMAN pathways
         #' @param sizePathwayMax maximum number of genes in selected HUMAN pathways
         #' @param phenotypeRankingLowestLevel logical, indicates if phenotype-based ranking should use lowest level + aggregation
+        #' @param filterICw Filter to use for IC, should be, NULL (no filtering) "mean" or number 0-1.
         initialize = function(database, substanceid,
             pathwayLevels = NULL, pathwaySummaryLevels = if(length(pathwayLevels)) min(pathwayLevels), 
-            sizePathwayMin = 0, sizePathwayMax = Inf, phenotypeRankingLowestLevel = FALSE) {
+            sizePathwayMin = 0, sizePathwayMax = Inf, phenotypeRankingLowestLevel = FALSE, filterICw = 0.2) {
           
           # store init arguments
           self$database <- database
@@ -64,6 +67,7 @@ PathwayRanking <- R6Class("PathwayRanking",
           self$sizePathwayMin <- sizePathwayMin
           self$sizePathwayMax <- sizePathwayMax
           self$phenotypeRankingLowestLevel <- phenotypeRankingLowestLevel
+          self$filterICw <- filterICw
           
           simulations <- self$database$getData("pathwaysimulations")
           self$simulationResults <- if (is.data.table(simulations) && simulations[,.N]>0) {
@@ -176,7 +180,7 @@ PathwayRanking <- R6Class("PathwayRanking",
             thisOntologyResults <- self$phenotypePathwayByOntology(
                 queryPhenotype = phenotypeTable[phenotypeOntology==ontology, unique(phenotypeid)],
                 go_id_prefix = ontology,
-                filterICw = NULL,
+                filterICw = self$filterICw,
                 lowestLevelOnly = self$phenotypeRankingLowestLevel,
                 pValues = TRUE)
             
@@ -242,12 +246,15 @@ PathwayRanking <- R6Class("PathwayRanking",
           ## combine scores of different ontologies
           adjustMethod <- "fdr"
           
+          # if "dartpaths_adjust_p_by_level" option is set to TRUE, p-value adjustment is applied per pathway level
+          adjustByColumn <- if(getOption("dartpaths_app_adjust_by_level", FALSE)) "level"
+          
           # p_adjusted_mammalian: Mammalian in vivo phenotypes
           if ("p_MP" %in% names(individualPathwayScores)){
             if (is.null(adjustMethod)){
               individualPathwayScores[, p_adjusted_mammalian := p_MP]
             } else {
-              individualPathwayScores[, p_adjusted_mammalian := p.adjust(p_MP, method = adjustMethod)]
+              individualPathwayScores[, p_adjusted_mammalian := p.adjust(p_MP, method = adjustMethod), by = adjustByColumn]
             }
           }  else {
             individualPathwayScores[, p_adjusted_mammalian := NA_real_]
@@ -256,29 +263,33 @@ PathwayRanking <- R6Class("PathwayRanking",
           # harmonic mean of ZP and WBPhenotype scores
           if(any(c("p_ZP", "p_WBPhenotype") %in% names(individualPathwayScores))){
             # non-existing fields like individualPathwayScores[["scoreXX"]] will yield NULL, which will be ignored by harmonicMeanColumnWise
-            individualPathwayScores[, p_adjusted_NAM := 
+            individualPathwayScores[, p_NAM := 
                     harmonicMeanColumnWise(
-                        individualPathwayScores[["p_ZP"]],
-                        individualPathwayScores[["p_WBPhenotype"]],
+                        .SD[["p_ZP"]],
+                        .SD[["p_WBPhenotype"]],
                         na.rm = TRUE, # NA indicates that no p-value could be estimated
-                        adjustMethod  = adjustMethod
-                    )]
+                        adjustMethod = NULL
+                    ), by = adjustByColumn]
+            individualPathwayScores[, p_adjusted_NAM := p.adjust(p_NAM, method = adjustMethod), by = adjustByColumn]
           } else {
+            individualPathwayScores[, p_NAM := NA]
             individualPathwayScores[, p_adjusted_NAM := NA]
           }
           # p_adjusted_all : Summary of Mammalian and NAM
           # harmonic mean of all ontologies
           if(any(c("p_MP", "p_ZP", "p_WBPhenotype") %in% names(individualPathwayScores))){
             # non-existing fields like individualPathwayScores[["scoreXX"]] will yield NULL, which will be ignored by harmonicMeanColumnWise
-            individualPathwayScores[, p_adjusted_all := 
+            individualPathwayScores[, p_all := 
                     harmonicMeanColumnWise(
-                        individualPathwayScores[["p_MP"]],
-                        individualPathwayScores[["p_ZP"]],
-                        individualPathwayScores[["p_WBPhenotype"]],
+                        .SD[["p_MP"]],
+                        .SD[["p_ZP"]],
+                        .SD[["p_WBPhenotype"]],
                         na.rm = TRUE, # NA indicates that no p-value could be estimated
-                        adjustMethod  = adjustMethod
-                    )]
+                        adjustMethod  = NULL
+                    ), by = adjustByColumn]
+            individualPathwayScores[, p_adjusted_all := p.adjust(p_all, method = adjustMethod), by = adjustByColumn]
           } else {
+            individualPathwayScores[, p_all := NA]
             individualPathwayScores[, p_adjusted_all := NA]
           }
           
@@ -287,7 +298,9 @@ PathwayRanking <- R6Class("PathwayRanking",
           minScores <- individualPathwayScores[ , .(
                   min_p_adjusted_all = minWithNA(p_adjusted_all),
                   min_p_adjusted_mammalian = minWithNA(p_adjusted_mammalian),
-                  min_p_adjusted_NAM = minWithNA(p_adjusted_NAM)),
+                  min_p_adjusted_NAM = minWithNA(p_adjusted_NAM),
+                  min_p_all = minWithNA(p_all),
+                  min_p_NAM = minWithNA(p_NAM)),
               by = level_parent]
           setnames(minScores, "level_parent", "reactome_pathway_stable_identifier")
           summaryRanking <- merge(summaryRanking, minScores, by = "reactome_pathway_stable_identifier", all.x = TRUE)
@@ -307,9 +320,9 @@ PathwayRanking <- R6Class("PathwayRanking",
             mammalianPhenoSelection = self$defaultSelection$mammalianPhenotypes,
             nonMammalianPhenoSelection = self$defaultSelection$nonMammalianPhenotypes
         ){
-        
+          
           cat(sprintf("Calculating pathway ranking with %d in vitro, %d mammalian and %d non-mammalian records...\n",
-              sum(inVitroSelection), sum(mammalianPhenoSelection), sum(nonMammalianPhenoSelection)))
+                  sum(inVitroSelection), sum(mammalianPhenoSelection), sum(nonMammalianPhenoSelection)))
           hash <- digest(list(inVitroSelection, mammalianPhenoSelection, nonMammalianPhenoSelection))
           if (! hash %in% names(self$cache$pathwayRanking)){
             startTime <- Sys.time()
@@ -350,14 +363,7 @@ PathwayRanking <- R6Class("PathwayRanking",
             if (is.null(simulations)) stop("No simulation results available for p-value estimation.")
           }
           
-          pathwaySpecies <- switch(
-              # remove trailing colon to support both "ZP" and "ZP:"
-              gsub("\\^","",
-                  gsub(":$","",go_id_prefix)),
-              ZP = "Danio rerio",
-              MP = "Mus musculus",
-              WBPhenotype = "Caenorhabditis elegans"
-          )
+          pathwaySpecies <- self$ontologyToSpeciesName(go_id_prefix)
           
           # casePheno: icweights for obserserved phenotypes (go_id)
           casePheno <- self$createCasePhenotype(queryPhenotype = queryPhenotype, querySpecies = NULL, filterICw = filterICw)
@@ -372,7 +378,10 @@ PathwayRanking <- R6Class("PathwayRanking",
           
           # p-values
           if (pValues){
-            ranking[, pvalue := self$estimatePvalueVector(go_id_prefix, length(unique(queryPhenotype)), reactome_pathway_stable_identifier, rankPercent)]
+            ranking[, pvalue := self$estimatePvalueVector(go_id_prefix, length(unique(casePheno[,go_id])),
+                    reactome_pathway_stable_identifier, rankPercent)]
+            #ranking[, querySize := length(unique(queryPhenotype))]
+            #ranking[, querySizeActual := length(unique(casePheno[,go_id]))]
           }
           
           # list phenotypes contributing to pathway ranking
@@ -388,7 +397,7 @@ PathwayRanking <- R6Class("PathwayRanking",
               ))
         },
         #' @description Create a test case from a list of phenotypes (phenotype>gene>pathway)
-        #' @param queryPhenotype list of phenotypes, e.g. c("ZP:0004424","ZP:0008523")
+        #' @param queryPhenotype list of phenotypes, e.g. c("ZP:0004424","ZP:0008523"). NULL will return all combinations of genes and phenotypes
         #' @param querySpecies (optional) character string with species, e.g. "Caenorhabditis elegans"
         #' @param filterICw Filter to use for IC, should be, NULL (no filtering) "mean" or number 0-1.
         #' @return casePheno data.table with GO_ID and ICweight
@@ -401,21 +410,21 @@ PathwayRanking <- R6Class("PathwayRanking",
             querySpecies = NULL,
             filterICw = NULL) {
           
-          # phenotypes of genes
-          genePheno <- self$database$getData("genepheno")
-          
-          # Retrieve phenotype and IC weight
-          casePheno <- genePheno
+          # Retrieve phenotype-gene pairs and IC weight for phenotypes
+          casePheno <- self$database$getData("genepheno")
           if (!is.null(querySpecies)){
             casePheno <- casePheno[taxon == self$database$retrieveTaxon(querySpecies)]
           }
-          casePheno <- casePheno[go_id %in% queryPhenotype]
           
           # optional extra filter based on icweight
           if (!is.null(filterICw) && filterICw == "mean") {
             casePheno <- casePheno[icweight >= mean(icweight)]
           } else if (!is.null(filterICw)) {
             casePheno <- casePheno[icweight >= filterICw]
+          }
+          
+          if (!is.null(queryPhenotype)){
+            casePheno <- casePheno[go_id %in% queryPhenotype]            
           }
           
           if (casePheno[,length(unique(icweight)), by = go_id][,any(V1>1)]){
@@ -477,12 +486,13 @@ PathwayRanking <- R6Class("PathwayRanking",
             ensembl2reactome <- ensembl2reactome[lowest == TRUE]
           }
           
-          # Match gene profile to pathways, count hits
+          # Match gene profile to pathways
           targetPathway <- ensembl2reactome[species == querySpecies,
               .(reactome_pathway_stable_identifier, event_name, source_database_identifier)]
           # map target pathways to human pathways
           # now: replace species code by HSA (non-existing human pathways will be discarded)
-          targetPathway[,reactome_pathway_stable_identifier := gsub("(^R-)([A-Z]+)(-[0-9]+$)","\\1HSA\\3",reactome_pathway_stable_identifier),]
+          targetPathway[,reactome_pathway_stable_identifier := gsub(
+                  "(^R-)([A-Z]+)(-[0-9]+$)","\\1HSA\\3",reactome_pathway_stable_identifier),]
           
           return(targetPathway)
         },
@@ -554,6 +564,18 @@ PathwayRanking <- R6Class("PathwayRanking",
           
           return(ranking)
         },
+        #' @description Auxilary method for mapping ontology name/prefix to species (e.g. "ZP" to "Danio rerio)
+        #' @param ontology name (prefix of phenotype identifiers) of ontology
+        ontologyToSpeciesName = function(ontology){
+          switch(
+              # remove trailing colon to support both "ZP" and "ZP:"
+              gsub("\\^","",
+                  gsub(":$","",ontology)),
+              ZP = "Danio rerio",
+              MP = "Mus musculus",
+              WBPhenotype = "Caenorhabditis elegans"
+          )
+        },
         #' @description Run Monte Carlo simulations for phenotypePathwayByOntology
         #' @param ontology name (prefix of phenotype identifiers) of ontology
         #' @param nRuns number of simulations
@@ -574,22 +596,56 @@ PathwayRanking <- R6Class("PathwayRanking",
           startTime <- proc.time()
           
           thisOntologyTerms <- self$database$getData("genepheno")[grepl(paste0("^", ontology,":"),go_id)]
-          uniqueTerms <- thisOntologyTerms[,unique(go_id)]
+          uniqueTerms <- self$createCasePhenotype(queryPhenotype = NULL,
+              querySpecies = self$ontologyToSpeciesName(ontology),
+              filterICw = self$filterICw)[,unique(go_id)]
           
-          res <- mcmapply(function(runIndex, nPhenotypes){
-                self$phenotypePathwayByOntology(
+          # use future_mapply for Windows
+          # not yet used on Linux due to instability (runs out of memory for large simulations)
+          useFutures <- FALSE
+          if (.Platform$OS.type=="windows" || useFutures){           
+            library(future.apply)
+            # multisession on Windows or RStudio, multicore otherwise           
+            if(supportsMulticore()){
+              mapplyParallel <- function(...){
+                plan(multicore) 
+                res <- future_mapply(..., future.seed= 1, workers = mc.cores)
+                resetWorkers(plan())
+                return(res)
+              }              
+            } else {
+              mapplyParallel <- function(...){
+                plan(multisession) 
+                res <- future_mapply(..., future.seed= 1)
+                resetWorkers(plan())
+                return(res)
+              }
+            }
+          } else {
+            mapplyParallel <- function(...){
+              mcmapply(...,
+                  mc.cores = mc.cores,
+                  mc.preschedule = FALSE)
+            }
+          }
+          
+          res <- mapplyParallel(
+              function(runIndex, nPhenotypes){
+                obj <- self$phenotypePathwayByOntology(
                     queryPhenotype = sample(uniqueTerms, nPhenotypes, FALSE),
                     go_id_prefix = ontology,
-                    filterICw = NULL,
+                    filterICw = self$filterICw,
                     lowestLevelOnly = self$phenotypeRankingLowestLevel,
-                    pValues = FALSE)$ranking[,.(reactome_pathway_stable_identifier, rankPercent)][rankPercent > 0][,
-                    `:=` (n_phenotypes = nPhenotypes, ontology = ontology, n_runs = nRuns, run_index = runIndex)]
+                    pValues = FALSE)
+                if(is.null(obj$ranking)){
+                  NULL
+                } else obj$ranking[,.(reactome_pathway_stable_identifier, rankPercent)][rankPercent > 0][,
+                      `:=` (n_phenotypes = nPhenotypes, ontology = ontology, n_runs = nRuns, run_index = runIndex)]
               },
               rep(seq_len(nRuns), length(querySizes)),
               rep(querySizes, each = nRuns),
-              SIMPLIFY = FALSE,
-              mc.cores = mc.cores,
-              mc.preschedule = FALSE)
+              SIMPLIFY = FALSE
+          )
           
           resLong <- rbindlist(res)
           setnames(resLong, "rankPercent", "rank_percent")
@@ -597,7 +653,7 @@ PathwayRanking <- R6Class("PathwayRanking",
           endTime <- proc.time()
           cat("Pathway ranking simulations for ontology", ontology, "(", nRuns ,"runs and ", length(querySizes),"query sizes) took",
               round(endTime - startTime)[3], "s\n")
-
+          
           # round to reduce disk 
           if(is.numeric(digits)){
             resLong[, rank_percent := round(rank_percent, digits)]
@@ -646,7 +702,10 @@ PathwayRanking <- R6Class("PathwayRanking",
               self$estimatePvalue(ontology, querySizeNext, pathway, rankPercent)
             } else NA_real_
           } else {
-            (sum(subTable[,rank_percent_list[[1]]]>rankPercent) + 1)/(subTable[1,n_runs] + 1)
+          	rankPercentSims <- subTable[,rank_percent_list[[1]]]
+          	nRuns <- subTable[1,n_runs]
+          	rankPercentSims <- c(rankPercentSims, rep(0, nRuns - length(rankPercentSims)))
+            (sum(rankPercentSims>=rankPercent) + 1)/(nRuns + 1)
           }
         },
         #' @description Estimate vector of p-values using Monte Carlo simulations
@@ -679,7 +738,8 @@ PathwayRanking <- R6Class("PathwayRanking",
               self$estimatePvalueVector(ontology, querySizeNext, pathway, rankPercent, skipNoSimulations)
             } else rep(NA_real_, length(rankPercent))
           } else {
-            denominator <- subTable[1,n_runs] + 1
+            nRuns <- subTable[1,n_runs]
+            denominator <- nRuns + 1
             
             rankPercentLookup <- lapply(
                 split(subTable, subTable$reactome_pathway_stable_identifier),
@@ -687,8 +747,8 @@ PathwayRanking <- R6Class("PathwayRanking",
             
             mapply(
                 function(x,y){
-                  split
                   rankPercentSims <- rankPercentLookup[[x]]
+                  rankPercentSims <- c(rankPercentSims, rep(0, nRuns - length(rankPercentSims)))
                   if(is.null(rankPercentSims)){
                     if (skipNoSimulations){
                       NA

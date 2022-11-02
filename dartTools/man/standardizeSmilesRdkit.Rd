@@ -32,7 +32,7 @@ Rdkit (python) is called to take care of the standardization
 \examples{
 \dontrun{
 smiles <- c("N[C@H](C)C(=O)O","O1CCCC[C@H]1C")
-result <- standardizeSmiles(smiles)
+result <- standardizeSmilesRdkit(smiles)
 }
 }
 \author{

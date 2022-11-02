@@ -143,6 +143,8 @@ Marvin Steijaert
 \item{\code{phenotypeRankingLowestLevel}}{Logical, indicates if phenotype-based ranking should use lowest level + aggregation}
 
 \item{\code{simulationResults}}{Simulation results used for p-value estimation}
+
+\item{\code{filterICw}}{Filter to use for IC, should be, NULL (no filtering) "mean" or number 0-1.}
 }
 \if{html}{\out{</div>}}
 }
@@ -157,6 +159,7 @@ Marvin Steijaert
 \item \href{#method-createProfile}{\code{PathwayRanking$createProfile()}}
 \item \href{#method-matchProfile}{\code{PathwayRanking$matchProfile()}}
 \item \href{#method-rankAUC}{\code{PathwayRanking$rankAUC()}}
+\item \href{#method-ontologyToSpeciesName}{\code{PathwayRanking$ontologyToSpeciesName()}}
 \item \href{#method-runSimulations}{\code{PathwayRanking$runSimulations()}}
 \item \href{#method-estimatePvalue}{\code{PathwayRanking$estimatePvalue()}}
 \item \href{#method-estimatePvalueVector}{\code{PathwayRanking$estimatePvalueVector()}}
@@ -178,7 +181,8 @@ Create a new PathwayRanking object
   pathwaySummaryLevels = if (length(pathwayLevels)) min(pathwayLevels),
   sizePathwayMin = 0,
   sizePathwayMax = Inf,
-  phenotypeRankingLowestLevel = FALSE
+  phenotypeRankingLowestLevel = FALSE,
+  filterICw = 0.2
 )}\if{html}{\out{</div>}}
 }
 
@@ -198,6 +202,8 @@ Create a new PathwayRanking object
 \item{\code{sizePathwayMax}}{maximum number of genes in selected HUMAN pathways}
 
 \item{\code{phenotypeRankingLowestLevel}}{logical, indicates if phenotype-based ranking should use lowest level + aggregation}
+
+\item{\code{filterICw}}{Filter to use for IC, should be, NULL (no filtering) "mean" or number 0-1.}
 }
 \if{html}{\out{</div>}}
 }
@@ -316,7 +322,7 @@ Create a test case from a list of phenotypes (phenotype>gene>pathway)
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{queryPhenotype}}{list of phenotypes, e.g. c("ZP:0004424","ZP:0008523")}
+\item{\code{queryPhenotype}}{list of phenotypes, e.g. c("ZP:0004424","ZP:0008523"). NULL will return all combinations of genes and phenotypes}
 
 \item{\code{querySpecies}}{(optional) character string with species, e.g. "Caenorhabditis elegans"}
 
@@ -437,6 +443,23 @@ self$rankAUC(targetPathway, profile)
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontologyToSpeciesName"></a>}}
+\if{latex}{\out{\hypertarget{method-ontologyToSpeciesName}{}}}
+\subsection{Method \code{ontologyToSpeciesName()}}{
+Auxilary method for mapping ontology name/prefix to species (e.g. "ZP" to "Danio rerio)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PathwayRanking$ontologyToSpeciesName(ontology)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology}}{name (prefix of phenotype identifiers) of ontology}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-runSimulations"></a>}}

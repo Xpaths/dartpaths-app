@@ -72,29 +72,9 @@ comparaOtherSpecies <- merge(comparaOtherSpecies, dictyGenes[,.(`GENE ID`, `Gene
 setnames(comparaOtherSpecies, "Gene Name", "homolog_gene")    
 database$addData("orthology", comparaOtherSpecies, fill = TRUE)
 
-# orthology extension from phylogeny pipeline
-# hedgehog and angiogenesis pathways
-phylogenyFile <- file.path(sharedDataDir, "phylogeny_pipeline/orthologs_protein-phylogeny_pipeline_20201028.xlsx")
-phylogenyData <- rbind(
-    as.data.table(openxlsx::read.xlsx(phylogenyFile, sheet = 2, rows = 8:35, cols = 3:11)),
-    as.data.table(openxlsx::read.xlsx(phylogenyFile, sheet = 4, rows = 6:8, cols = 3:11)))
-phylogenyData <- phylogenyData[!is.na(speciesfull)]
-phylogenyData[confidence %in% c("N/A"), confidence:= NA]
-phylogenyData[, speciesfull:= gsub("^([A-Z][a-z]*)([A-Z][a-z]*)","\\1 \\L\\2",speciesfull,perl = TRUE)]
-phylogenyData[, homologytype:=paste0("ortholog_", homologytype, "_manual")]
-database$addData("orthology", phylogenyData, fill = TRUE)
-# WNT pathway
-wntSpeciesPrefix <- c("Celegans", "Rabbit", "Rat", "Zebrafish")
-wntSpeciesFull <- c("Caenorhabditis elegans", "Oryctolagus cuniculus", "Rattus norvegicus", "Danio rerio")
-wntFilenames <- file.path(sharedDataDir, "phylogeny_pipeline", "WNT", paste0(wntSpeciesPrefix, "_orthology_finegrained_additions.txt"))
-phylogenyList <- lapply(wntFilenames, fread)
-tmp <- mapply(function(dt, species) dt[, speciesfull:= species], phylogenyList, wntSpeciesFull, SIMPLIFY = FALSE)
-tmp <- lapply(phylogenyList, setnames, c("geneid", "protein_or_transcriptid", "homologytype", "homolog_geneid", "homolog_protein_or_transcriptid", "status_ensembl", "speciesfull"))
-wntPhylogeny <- rbindlist(phylogenyList)
-wntPhylogeny[, status_ensembl := NULL]
-wntPhylogeny[, homologytype:=gsub("ortholog_", "", homologytype )]
-wntPhylogeny[, homologytype:=paste0("ortholog_", homologytype, "_manual")]
-database$addData("orthology", wntPhylogeny, fill = TRUE)
+# optionally add (project-specific) fine-grained orthology
+fineGrainedScript <- file.path(etlScriptsDir,"populate_db_06a_orthology_fine_grained.R")
+if (file.exists(fineGrainedScript)) source(fineGrainedScript)
 
 # Ensembl human genes
 # file was created with following API call

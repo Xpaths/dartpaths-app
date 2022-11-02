@@ -711,12 +711,15 @@ results$substance_pathways <- eventReactive(input$calculate_pathway,  {
 
 
 substancePathways <- reactive({
-      
       substancePathways <- results$substance_pathways()$summary
-      
-      
       substancePathways
     })
+
+substancePathwaysIndiv <- reactive({
+      substancePathways <- results$substance_pathways()$individualPathwayScores
+      substancePathways
+    })
+
 
 substancePathwaysWithCircle  <- reactive({
 
@@ -1759,7 +1762,10 @@ output$substance_pathways <-
               need(!is.null(substancePathways()) || nrow(substancePathways()) != 0, 'No data available')
           )
           
-          substancePathways <- substancePathways()[order(min_p_adjusted_all, -scoreInVitro, decreasing = FALSE)]		
+          substancePathways <- substancePathways()[order(min_p_adjusted_all, -scoreInVitro, decreasing = FALSE)]
+          substancePathways[,
+              contributingPhenotypes := contributingPhenotypesMammalian + contributingPhenotypesNonMammalian]
+          
           
           substancePathways[,pathway:= createLink(paste0("https://reactome.org/PathwayBrowser/#/",reactome_pathway_stable_identifier), event_name)]
           
@@ -1772,7 +1778,9 @@ output$substance_pathways <-
                   pathway = "Pathway",
                   genes = "In vitro hits",
                   min_p_adjusted_mammalian = "Mammalian<br/>(adjusted p-value)",
+                  contributingPhenotypesMammalian = "Number of</br>mammalian phenotypes",
                   min_p_adjusted_NAM = "Non-mammalian<br/>(adjusted p-value)",
+                  contributingPhenotypesNonMammalian = "Number of</br>non-mammalian phenotypes",
                   min_p_adjusted_all = "All phenotypes<br/>(adjusted p-value)",
                   scoreInVitro = "In vitro<br/>(Jaccard index)"),
               columnConversions = c(
@@ -1788,7 +1796,41 @@ output$substance_pathways <-
     )
 
 
-## III. Mammalian tab ##
+output$substance_pathways_indiv <-  
+    
+    renderDataTable({
+          
+          validate(
+              need(!is.null(substancePathwaysIndiv()) || nrow(substancePathwaysIndiv()) != 0, 'No data available')
+          )
+          
+          substancePathways <- substancePathwaysIndiv()[order(p_adjusted_all, decreasing = FALSE)]		
+          
+          substancePathways[,pathway:= createLink(paste0("https://reactome.org/PathwayBrowser/#/",reactome_pathway_stable_identifier), event_name)]
+          
+          roundPValues <- function(vec) round(vec, nDigitsPValues)
+          
+          uiTable(substancePathways,
+              columnMap = c(
+                  level = "Level",
+                  pathway = "Pathway",
+                  p_adjusted_mammalian = "Mammalian<br/>(adjusted p-value)",
+                  p_adjusted_NAM = "Non-mammalian<br/>(adjusted p-value)",
+                  p_adjusted_all = "All phenotypes<br/>(adjusted p-value)"),
+              columnConversions = c(
+                  p_adjusted_mammalian = roundPValues,
+                  p_adjusted_NAM = roundPValues,
+                  p_adjusted_all = roundPValues
+              ),
+              interactive = TRUE, scrollX = FALSE,
+              options = list(dom = '<"top">t<"bottom"ilp><"clear">'
+              )	
+          )}
+    )
+
+
+
+## III. Regulatory studies tab ##
 
 RegulatoryConclusionsTable <- reactive ({
       

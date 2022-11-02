@@ -1,2 +1,0 @@
-Gene stable ID	Protein stable ID	Rat homology type	Rat Gene stable ID	Rat Protein stable ID	status ENSEMBL
-ENSG00000103126	ENSP00000262320	ortholog_one2one	ENSRNOG00000020414	ENSRNOP00000044336	absent

@@ -24,8 +24,7 @@ about_page <- div(
                     
                     # Orthologous pathways
                     tags$p("DARTpaths also allows decision making about which test system(s) are most suitable when known DART pathways are disrupted.", 
-                        "The app allows to search pathways and maps evolutionary conservation of those pathways across mammalian test systems such as mouse, rat and rabbit and 3R-compliant non-mammalian species such as slime mold (D. discoideum), nematode (C. elegans) and zebrafish.", 
-                        "A fine-grained orthology mapping has been added to increase the reliability of the orthology predictions."),
+                        "The app allows to search pathways and maps evolutionary conservation of those pathways across mammalian test systems such as mouse, rat and rabbit and 3R-compliant non-mammalian species such as slime mold (D. discoideum), nematode (C. elegans) and zebrafish."),
                 
 				createContactButton("Go to Vivaltes for wet-lab testing to validate DARTpaths predictions or to ask other questions")),
                 

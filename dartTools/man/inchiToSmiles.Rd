@@ -19,8 +19,8 @@ use rdkit to convert a vector of inchi to a vector of smiles
 }
 \examples{
 \dontrun{
-smiles <- c("N[C@H](C)C(=O)O","O1CCCC[C@H]1C")
-result <- smilesToPng(smiles)
+inchis <- c("InChI=1S/C2H6O/c1-2-3/h3H,2H2,1H3","InChI=1S/C6H8O6/c7-1-2(8)5-3(9)4(10)6(11)12-5/h2,5,7-10H,1H2/t2-,5+/m0/s1")
+result <- inchiToSmiles(inchis)
 }
 }
 \author{

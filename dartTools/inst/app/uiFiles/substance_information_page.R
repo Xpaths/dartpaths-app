@@ -139,8 +139,17 @@ substance_information_page <- div(
                 tags$div(class = "information-table", style = "margin-bottom:50px", 
                     dataTableOutput("substance_pathways") 
                 )
-            ),
-            
+            ),   
+            if(getOption("dartpaths_app_indiv_pathways_tab", FALSE)){
+              tabPanel(value = "tab2indiv", title = "Pathway ranking individual",
+                tags$div(class = "info-tip-wrapper", 
+                    tags$div(class = "info-tip", 
+                        tags$span(class = "tooltiptext", "This table shows the p-values for individual pathways at all levels.", 
+                        ))),
+                tags$div(class = "information-table", style = "margin-bottom:50px", 
+                    dataTableOutput("substance_pathways_indiv") 
+                )
+            )},
             tabPanel(value = "tab3", title = "Regulatory studies", 
                 
                 tags$div(class = "info-tip-wrapper", 

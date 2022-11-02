@@ -8,7 +8,6 @@ from rdkit import RDLogger
 lg = RDLogger.logger()
 lg.setLevel(RDLogger.CRITICAL)
 import json
-from multiprocessing import Pool, cpu_count
 
 def inchi_to_smiles(inchi):
     try:
@@ -17,6 +16,8 @@ def inchi_to_smiles(inchi):
     except:
         return ""
 
-res = [inchi_to_smiles(line) for line in sys.stdin]
-
-sys.stdout.write(json.dumps(res))
+if __name__ == "__main__":
+    
+    res = [inchi_to_smiles(line) for line in sys.stdin]
+    
+    sys.stdout.write(json.dumps(res))

@@ -126,6 +126,9 @@ substance_search_page <- div(
 								# pathway ranking
 								tabPanel(value = "tab2", title = "Pathway ranking"
 								),
+                if(getOption("dartpaths_app_indiv_pathways_tab", FALSE)){
+                  tabPanel(value = "tab2indiv", title = "Pathway ranking individual")
+                },
 								tabPanel(value = "tab3", title = "Regulatory studies"
 								),
 								tabPanel(value = "tab4", title = "In vitro"

@@ -86,7 +86,7 @@ callPythonScript <- function(inputVec, pyfile, pythonPath = getOption("dartpaths
 #' @import data.table
 #' @examples \dontrun{
 #' smiles <- c("N[C@@H](C)C(=O)O","O1CCCC[C@@H]1C")
-#' result <- standardizeSmiles(smiles)
+#' result <- standardizeSmilesRdkit(smiles)
 #' }
 standardizeSmilesRdkit <- function(smiles, pythonPath = getOption("dartpaths_python"), cache = TRUE, chunkSize = 1000){
   
@@ -137,7 +137,21 @@ standardizeSmilesRdkit <- function(smiles, pythonPath = getOption("dartpaths_pyt
 #' }
 fingerprintsRdkit <- function(smiles, pythonPath = getOption("dartpaths_python")){
   
-  callPythonScript(smiles, "morganfpCmd.py", pythonPath, header = TRUE)
+  #callPythonScript(smiles, "morganfpCmd.py", pythonPath, header = TRUE)
+  
+  if(length(smiles) == 0) return(NULL)
+  
+  # using strategy "sequential" (fastest in this case)
+  res <- as.data.table(t(setDT(processSmilesWithReticulate(smiles, "morgan_fp_bitvector_int", timeout = 60, strategy = "sequential"))))
+  # replace NaN by NA (for consistency)
+  for(j in names(res)) {
+    set(res, which(is.nan(res[[j]])), j, NA)
+  }
+  names(res) <- paste0("fp",seq_len(ncol(res))-1)
+  res[, smiles := smiles]
+  setcolorder(res, "smiles")
+  
+  return(res)
 }
 
 #' smilesToPng
@@ -155,7 +169,8 @@ fingerprintsRdkit <- function(smiles, pythonPath = getOption("dartpaths_python")
 #' result <- smilesToPng(smiles)
 #' }
 smilesToPng <- function(smiles, pythonPath = getOption("dartpaths_python")){
-  callPythonScript(smiles, "drawMolecule.py", pythonPath, outputClass = NULL)
+  #callPythonScript(smiles, "drawMolecule.py", pythonPath, outputClass = NULL)
+  processSmilesWithReticulate(smiles, "draw_smiles")
 }
 
 
@@ -170,11 +185,12 @@ smilesToPng <- function(smiles, pythonPath = getOption("dartpaths_python")){
 #' @export
 #' @importFrom jsonlite fromJSON
 #' @examples \dontrun{
-#' smiles <- c("N[C@@H](C)C(=O)O","O1CCCC[C@@H]1C")
-#' result <- smilesToPng(smiles)
+#' inchis <- c("InChI=1S/C2H6O/c1-2-3/h3H,2H2,1H3","InChI=1S/C6H8O6/c7-1-2(8)5-3(9)4(10)6(11)12-5/h2,5,7-10H,1H2/t2-,5+/m0/s1")
+#' result <- inchiToSmiles(inchis)
 #' }
 inchiToSmiles <- function(inchis, pythonPath = getOption("dartpaths_python")){
-  callPythonScript(inchis, "inchi2smiles.py", pythonPath, outputClass = NULL)
+  #callPythonScript(inchis, "inchi2smiles.py", pythonPath, outputClass = NULL)
+  processSmilesWithReticulate(inchis, "inchi_to_smiles")
 }
 
 #' Auxiliary function for standardizeSmilesRdkit
@@ -183,17 +199,51 @@ inchiToSmiles <- function(inchis, pythonPath = getOption("dartpaths_python")){
 #' @return data.table object
 #' @author Marvin Steijaert
 #' @import reticulate
-standardizeSmilesList <- function(smiles, pythonBinding = "system2"){
-  # pythonBinding="system2" is easier to debug
+standardizeSmilesList <- function(smiles, pythonBinding = "reticulate"){
   if (pythonBinding == "reticulate"){
-    # reticulate:  	
-    use_python(python = getOption("dartpaths_python"), required = TRUE)
-    pythonModule = "standardize_rdkit" 
-    module <- import_from_path(pythonModule,
-        path = system.file("python", package = "dartTools"),
-        convert = TRUE, delay_load = FALSE)
-    module$standardize_smiles_list(smiles)
+    res = processSmilesWithReticulate(smiles, "standardize_smiles", timeout = 60)
+    res = data.table(res)
+    setnames(res,"V1")
+    res[V1=="",V1 := NA]
+    return(res)
   } else if (pythonBinding == "system2"){
     callPythonScript(smiles, "standardize_rdkit.py", useFiles = TRUE)
   } else stop("pythonBinding has unsupported value")
+}
+
+
+#' Auxiliary function to processes smiles in parallel
+#' @param smiles Vector with smiles strings.
+#' @param python_function_name One of the available function names for parallel procesing.
+#' @param timeout Number of seconds after which a worker is interrupted
+#' @param nWorkers Number of workers (optional)
+#' @param strategy Strategy for processing multiple smiles (can be "multiprocessing", "threading" or "sequential")
+#' @return processed output of smiles
+#' @author Marvin Steijaert
+#' @export
+processSmilesWithReticulate <- function(smiles,
+    python_function_name = c("standardize_smiles", "draw_smiles", "morgan_fp_bitvector_int", "inchi_to_smiles"),
+    timeout = 10, nWorkers = parallel::detectCores() -1,
+    strategy = getOption("dartpaths_python_strategy")){
+  
+  python_function_name = match.arg(python_function_name)
+  
+  use_python(python = getOption("dartpaths_python"), required = TRUE)
+  
+  # make sure that modules can be found
+  pythonModulesDir <- system.file("python", package = "dartTools")
+  sys <- import("sys", convert = FALSE)
+  sys$path$insert(0L, pythonModulesDir)
+  
+  process_parallel <- import_from_path("process_parallel",
+      path = pythonModulesDir,
+      convert = TRUE, delay_load = FALSE)
+  
+  # reticulate translates NA_character_ to "NA".
+  # replace by empty strings to avoid unexpected behavior
+  smiles[is.na(smiles)] = ""
+  process_parallel$process_smiles(python_function_name, smiles,
+      n_workers = as.integer(nWorkers),
+      strategy = strategy,
+      timeout = timeout)
 }

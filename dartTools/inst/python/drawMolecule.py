@@ -8,10 +8,8 @@ from io import BytesIO
 from rdkit import RDLogger
 lg = RDLogger.logger()
 lg.setLevel(RDLogger.CRITICAL)
-import json
-from multiprocessing import Pool, cpu_count
 
-TRANSPARENTPIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+TRANSPARENTPIXEL = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
 
 def draw_smiles(smiles):
     try:
@@ -25,9 +23,13 @@ def draw_smiles(smiles):
         image_str_utf8 = TRANSPARENTPIXEL
     return f'<img src="data:image/png;base64,{image_str_utf8}"></img>'
 
-inputsmiles = [line for line in sys.stdin]
-
-with Pool(max([1, cpu_count() - 1])) as p:
-    res = p.map(draw_smiles, inputsmiles)
-
-sys.stdout.write(json.dumps(res))
+if __name__ == "__main__":
+    import json
+    from multiprocessing import Pool, cpu_count
+    
+    inputsmiles = [line for line in sys.stdin]
+    
+    with Pool(max([1, cpu_count() - 1])) as p:
+        res = p.map(draw_smiles, inputsmiles)
+        
+    sys.stdout.write(json.dumps(res))

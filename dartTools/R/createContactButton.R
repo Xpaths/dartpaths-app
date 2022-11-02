@@ -1,6 +1,7 @@
 #' Create contact buttons
 #' @param text text (character vector of length one)
 #' @importFrom fontawesome fa
+#' @importFrom htmltools HTML
 #' @export
 createContactButton <- function(text){
 	tags$div(class = "flex-wrapper contact-div", tags$div(class = "flex-item",  

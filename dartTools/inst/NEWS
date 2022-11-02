@@ -1,3 +1,7 @@
+1.2.0
+	o Reticulate as default Python interface
+	o Bug fix in p-values
+	o Filter phenotypes by information content in pathway ranking
 1.1.0
 	o Minor bug fixes and improvements in Shiny app 
 1.0.0

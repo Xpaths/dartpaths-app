@@ -4,7 +4,7 @@
 \alias{standardizeSmilesList}
 \title{Auxiliary function for standardizeSmilesRdkit}
 \usage{
-standardizeSmilesList(smiles, pythonBinding = "system2")
+standardizeSmilesList(smiles, pythonBinding = "reticulate")
 }
 \arguments{
 \item{smiles}{List of smiles strings}

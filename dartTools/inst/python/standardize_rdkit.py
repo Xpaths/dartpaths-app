@@ -88,7 +88,7 @@ def process_smiles_list(smiles_list, timeout = 60, verbose = False):
                 break
             except TimeoutError as error:
                 if verbose:
-                    print(f"Compound skipped as standardization it took longer than {timeout} seconds")
+                    print(f"Compound skipped as standardization took longer than {timeout} seconds")
                 results.append("")
             except ProcessExpired as error:
                 if verbose:
@@ -96,8 +96,11 @@ def process_smiles_list(smiles_list, timeout = 60, verbose = False):
                 results.append("")
             except Exception as error:
                 if verbose:
-                    print("Compound skipped due to the following error")
-                    print(error.traceback)  # Python's traceback of remote process
+                    if hasattr(error, "traceback"):
+                        print("Compound skipped due to the following error")
+                        print(error.traceback)  # Python's traceback of remote process
+                    else:
+                        print("Compound skipped due to error")
                 results.append("")
                 
     return results

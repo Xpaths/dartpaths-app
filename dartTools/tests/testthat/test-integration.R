@@ -65,8 +65,10 @@ test_that("pathway ranking", {
       
       database <- loadRealData()
       
-      # use substance with most phenotypes as a test case
-      querySubstanceid <- database$tables$substancephenotypes[,.N, by = substanceid][order(N, decreasing = TRUE)[1]]
+      # use substance with most mammalian phenotypes as a test case
+      querySubstanceid <- database$tables$substancephenotypes[,
+          .(nMP = sum(grepl("^MP.*",phenotypeid))), by = substanceid][
+          order(nMP, decreasing = TRUE)[1]]
       
       pathwayRankingObject <- PathwayRanking$new(database = database, substanceid = querySubstanceid,
           pathwayLevels = 3:database$getHumanPathwayLevels()[,max(level)],

@@ -1,8 +1,8 @@
 Package: dartTools
 Type: Package
 Title: DARTpaths web application and related tools
-Version: 1.1
-Date: 2022-07-12
+Version: 1.2
+Date: 2022-11-02
 Author: Marvin Steijaert, Elisabeth Deviere, Machteld Varewyck, Monique van der Voet, Marijke van Moerbeke
 Maintainer: Marvin Steijaert <marvin.steijaert@openanalytics.eu>
 Description: DARTpaths web application and related tools
@@ -12,7 +12,7 @@ Imports:
     shiny,
     devtools,
     plotly,
-    DT,
+    DT (<= 0.25),
     magrittr,
     R6,
     R.utils,
@@ -31,7 +31,7 @@ Imports:
     assertthat
 Suggests:
     shinyjs,
-    oaReporting,
+    pander,
     testthat,
     rlist,
     shinyWidgets,
